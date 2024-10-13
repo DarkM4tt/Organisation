@@ -1,0 +1,105 @@
+.MuiAutocomplete-hasPopupIcon {
+  padding: 0px;
+  display: flex;
+}
+
+.MuiAutocomplete-inputRoot .MuiAutocomplete-input {
+  display: none;
+  width: 0;
+  min-width: 30px;
+}
+.MuiAutocomplete-hasPopupIcon {
+  /* flex-grow: 1; */
+  /* padding: 16.5px 14px; */
+  display: flex;
+  height: 55px;
+}
+
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-ka7ti6-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  height: 100%;
+  padding-right: 0px;
+}
+
+.MuiAutocomplete-hasPopupIcon.css-ka7ti6-MuiAutocomplete-root
+  .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-ka7ti6-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  height: 100% !important;
+  padding-right: 39px !important;
+}
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-ka7ti6-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator {
+  display: none;
+}
+.css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator {
+  display: none !important;
+}
+
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-ka7ti6-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  display: flex !important;
+  justify-content: center !important;
+}
+.hidescrollbar {
+  overflow-y: scroll;
+}
+
+.hidescrollbar::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.hidescrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.MuiTableRow-root td:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.MuiTableRow-root td:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-t8mizt-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  height: 100% !important;
+}
+
+.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-t8mizt-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  padding-right: 39px !important;
+  justify-content: center !important;
+}
+
+.MuiAutocomplete-hasPopupIcon.css-t8mizt-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  height: 100% !important;
+}
+
+.css-f2cmkj {
+  height: 100% !important;
+}
+
+.css-yc35kn {
+  height: 100% !important;
+}
+
+.css-edpqz1{
+  display: none !important;
+}
+
+.css-yc35kn{
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  justify-content: center !important;
+}
