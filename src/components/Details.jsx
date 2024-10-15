@@ -27,11 +27,11 @@ const documents = [
   },
 ];
 
-const DocumentUpload = ({
-  personalAccidentUploaded,
-  civilLiabilityUploaded,
-  tvdeLicenseUploaded,
-  tvdeLicenseDrettUploaded,
+const Details = ({
+  personalAccidentFile,
+  civilLiabilityFile,
+  tvdeLicenseFile,
+  tvdeLicenseDrettFile,
   onUpload,
 }) => {
   const [loading, setLoading] = useState(null);
@@ -44,7 +44,7 @@ const DocumentUpload = ({
     ) {
       setLoading(docId);
       setTimeout(() => {
-        onUpload(docId);
+        onUpload(docId, file); // Send both docId and file to parent
         setLoading(null);
       }, 1500);
     } else {
@@ -52,18 +52,18 @@ const DocumentUpload = ({
     }
   };
 
-  const isUploaded = (docId) => {
+  const getUploadedFile = (docId) => {
     switch (docId) {
       case 1:
-        return personalAccidentUploaded;
+        return personalAccidentFile;
       case 2:
-        return civilLiabilityUploaded;
+        return civilLiabilityFile;
       case 3:
-        return tvdeLicenseUploaded;
+        return tvdeLicenseFile;
       case 4:
-        return tvdeLicenseDrettUploaded;
+        return tvdeLicenseDrettFile;
       default:
-        return false;
+        return null;
     }
   };
 
@@ -81,11 +81,14 @@ const DocumentUpload = ({
             <span className="text-base font-bold font-redhat">
               [Partner Only] {doc.name}
             </span>
-            {isUploaded(doc.id) ? (
+            {getUploadedFile(doc.id) ? (
               <div className="flex items-center mt-4 gap-2">
-                <img src={checkIcon} alt="ckecked" />
+                <img src={checkIcon} alt="checked" />
                 <span className="font-redhat text-base font-medium text-[#18C4B8]">
                   Valid until {doc.validUntil}
+                </span>
+                <span className="font-redhat text-xs text-gray-500">
+                  {getUploadedFile(doc.id).name} {/* Display file name */}
                 </span>
               </div>
             ) : null}
@@ -114,7 +117,7 @@ const DocumentUpload = ({
               >
                 {loading === doc.id ? (
                   <LoadingAnimation height={40} width={40} />
-                ) : isUploaded(doc.id) ? (
+                ) : getUploadedFile(doc.id) ? (
                   "Re-upload"
                 ) : (
                   "Upload"
@@ -128,12 +131,12 @@ const DocumentUpload = ({
   );
 };
 
-DocumentUpload.propTypes = {
-  personalAccidentUploaded: PropTypes.bool.isRequired,
-  civilLiabilityUploaded: PropTypes.bool.isRequired,
-  tvdeLicenseUploaded: PropTypes.bool.isRequired,
-  tvdeLicenseDrettUploaded: PropTypes.bool.isRequired,
+Details.propTypes = {
+  personalAccidentFile: PropTypes.object,
+  civilLiabilityFile: PropTypes.object,
+  tvdeLicenseFile: PropTypes.object,
+  tvdeLicenseDrettFile: PropTypes.object,
   onUpload: PropTypes.func.isRequired,
 };
 
-export default DocumentUpload;
+export default Details;

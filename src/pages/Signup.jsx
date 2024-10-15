@@ -26,12 +26,10 @@ const Signup = () => {
   const [language, setLanguage] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [personalAccidentUploaded, setPersonalAccidentUploaded] =
-    useState(false);
-  const [civilLiabilityUploaded, setCivilLiabilityUploaded] = useState(false);
-  const [tvdeLicenseUploaded, setTvdeLicenseUploaded] = useState(false);
-  const [tvdeLicenseDrettUploaded, setTvdeLicenseDrettUploaded] =
-    useState(false);
+  const [personalAccidentFile, setPersonalAccidentFile] = useState(null);
+  const [civilLiabilityFile, setCivilLiabilityFile] = useState(null);
+  const [tvdeLicenseFile, setTvdeLicenseFile] = useState(null);
+  const [tvdeLicenseDrettFile, setTvdeLicenseDrettFile] = useState(null);
   const navigate = useNavigate();
   const [registerUser] = useRegisterUserMutation();
   const [sendMobileOTP] = useSendMobileOTPMutation();
@@ -74,19 +72,31 @@ const Signup = () => {
       }
       setLoading(false);
     } else if (step === 5) {
-      const userData = {
-        phone_number: mobileNumber,
-        phone_verified: true,
-        password,
-        organization_name: orgName,
-        country: earningCountry,
-        language,
-        email,
-      };
+      const formData = new FormData();
+      formData.append("organization_name", orgName);
+      formData.append("phone_number", mobileNumber);
+      formData.append("country", earningCountry);
+      formData.append("language", language);
+      formData.append("password", password);
+      formData.append("email", email);
+      formData.append("phone_verified", true);
+
+      if (personalAccidentFile) {
+        formData.append("accident_insurance", personalAccidentFile);
+      }
+      if (civilLiabilityFile) {
+        formData.append("cp_liability", civilLiabilityFile);
+      }
+      if (tvdeLicenseFile) {
+        formData.append("tvde", tvdeLicenseFile);
+      }
+      if (tvdeLicenseDrettFile) {
+        formData.append("drett", tvdeLicenseDrettFile);
+      }
 
       setLoading(true);
       try {
-        const response = await registerUser(userData).unwrap();
+        const response = await registerUser(formData).unwrap();
         const org_id = response?.org?._id;
         localStorage.setItem("org_id", org_id);
         navigate("/home");
@@ -102,7 +112,9 @@ const Signup = () => {
   };
 
   const handleBack = () => {
-    if (step === 1) {
+    if (step === 1 || step === 2) {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("org_id");
       navigate("/");
     } else {
       setStep((prevStep) => prevStep - 1);
@@ -122,31 +134,30 @@ const Signup = () => {
       case 4:
         return earningCountry && language;
       case 5:
-        // return (
-        //   personalAccidentUploaded &&
-        //   civilLiabilityUploaded &&
-        //   tvdeLicenseUploaded &&
-        //   tvdeLicenseDrettUploaded
-        // );
-        return true;
+        return (
+          personalAccidentFile &&
+          civilLiabilityFile &&
+          tvdeLicenseFile &&
+          tvdeLicenseDrettFile
+        );
       default:
         return false;
     }
   };
 
-  const handleUpload = (docId) => {
+  const handleUpload = (docId, file) => {
     switch (docId) {
       case 1:
-        setPersonalAccidentUploaded(true);
+        setPersonalAccidentFile(file);
         break;
       case 2:
-        setCivilLiabilityUploaded(true);
+        setCivilLiabilityFile(file);
         break;
       case 3:
-        setTvdeLicenseUploaded(true);
+        setTvdeLicenseFile(file);
         break;
       case 4:
-        setTvdeLicenseDrettUploaded(true);
+        setTvdeLicenseDrettFile(file);
         break;
       default:
         break;
@@ -242,10 +253,10 @@ const Signup = () => {
           )}
           {step === 5 && (
             <Details
-              personalAccidentUploaded={personalAccidentUploaded}
-              civilLiabilityUploaded={civilLiabilityUploaded}
-              tvdeLicenseUploaded={tvdeLicenseUploaded}
-              tvdeLicenseDrettUploaded={tvdeLicenseDrettUploaded}
+              personalAccidentFile={personalAccidentFile}
+              civilLiabilityFile={civilLiabilityFile}
+              tvdeLicenseFile={tvdeLicenseFile}
+              tvdeLicenseDrettFile={tvdeLicenseDrettFile}
               onUpload={handleUpload}
             />
           )}

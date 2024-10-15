@@ -35,7 +35,6 @@ export const authSlice = createApi({
         url: "organization/register",
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           auth_otp_token: localStorage.getItem("auth_token"),
         },
         body: userData,
