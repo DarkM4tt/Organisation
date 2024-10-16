@@ -24,7 +24,7 @@ import wrongBigIcon from "../../assets/crossBig.svg";
 import infoYellow from "../../assets/infoYellow.svg";
 import searchIcon from "../../assets/searchIcon.svg";
 
-const ColorButton = styled(Button)(({ theme }) => ({
+const ColorButton = styled(Button)(() => ({
   fontSize: "16px",
   fontFamily: "Red Hat Display, sans-serif",
 }));
@@ -76,7 +76,7 @@ const FleetInfo = ({
   }, [fleetDetails]);
 
   const validateDescription = () => {
-    if (fleetDesc.length < 30) {
+    if (fleetDesc.length < 20) {
       setUpdateError("Discription should be atleast of 30 characters ");
     } else {
       setUpdateError("");
@@ -199,6 +199,8 @@ const FleetInfo = ({
       description: fleetDesc,
       vehicles: vehicleActions,
     };
+
+    vehicleActions.length === 0 && delete body.vehicles;
 
     console.log(body);
 

@@ -67,12 +67,13 @@ const AddVehicle = ({
     </Box>
   );
 
-  const isFormValid = Object.entries(formData).every(([key, value]) => {
-    if (key === "fleet_id") {
-      return true;
-    }
-    return typeof value === "string" ? value.trim() !== "" : value != null;
-  });
+  const isFormValid =
+    formData.registration_number &&
+    formData.vin &&
+    formData.brand_name &&
+    formData.category_id &&
+    formData.model &&
+    formData.color;
 
   return (
     <Box
@@ -145,11 +146,13 @@ const AddVehicle = ({
               }}
               onClick={() => handleFileInputClick(fileInput.fieldName)}
             >
-              {loadingFiles[fileInput.fieldName]
-                ? "Loading..."
-                : formData[fileInput.fieldName]
-                ? "Re-upload"
-                : "Choose file"}
+              {loadingFiles[fileInput.fieldName] ? (
+                <LoadingAnimation height={40} width={40} />
+              ) : formData[fileInput.fieldName] ? (
+                "Re-upload"
+              ) : (
+                "Choose file"
+              )}
               <input
                 type="file"
                 accept=".pdf,image/*"
@@ -305,7 +308,7 @@ const AddVehicle = ({
               sx={{ flex: 1 }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 0, step: "0.01" }}
             />
           </Box>
         )}

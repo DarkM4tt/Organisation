@@ -44,7 +44,6 @@ const Vehicles = ({ onVehicleClick }) => {
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [addVehicleFormData, setAddVehicleFormData] = useState({
     registration_number: "",
-    fleet_id: "",
     vin: "",
     brand_name: "",
     category_id: "",
@@ -52,9 +51,10 @@ const Vehicles = ({ onVehicleClick }) => {
     color: "",
     pet_friendly: false,
     jump_start: false,
-    rental: false,
     assist: false,
-    hourly_charges: 0,
+    rental: false,
+    hourly_charges: "",
+    fleet_id: "",
     insurancePolicy: null,
     technicalInspection: null,
     specialConditionsPolicy: null,
@@ -244,7 +244,7 @@ const Vehicles = ({ onVehicleClick }) => {
     if (name === "hourly_charges") {
       setAddVehicleFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: parseInt(value),
+        [name]: parseFloat(value),
       }));
       return;
     }
@@ -258,20 +258,41 @@ const Vehicles = ({ onVehicleClick }) => {
     setButtonLoading(true);
     const orgId = localStorage.getItem("org_id");
 
-    if (addVehicleFormData.hourly_charges < 1 && addVehicleFormData.rental) {
-      setAddError("Hourly Charges Should be greater than 1");
-      setButtonLoading(false);
-      return;
+    const formData = new FormData();
+    formData.append(
+      "registration_number",
+      addVehicleFormData.registration_number
+    );
+    formData.append("vin", addVehicleFormData.vin);
+    formData.append("brand_name", addVehicleFormData.brand_name);
+    formData.append("category_id", addVehicleFormData.category_id);
+    formData.append("model", addVehicleFormData.model);
+    formData.append("color", addVehicleFormData.color);
+    formData.append("pet_friendly", addVehicleFormData.pet_friendly);
+    formData.append("jump_start", addVehicleFormData.jump_start);
+    formData.append("assist", addVehicleFormData.assist);
+    formData.append("rental", addVehicleFormData.rental);
+    addVehicleFormData.rental &&
+      formData.append("rent_hourly_charges", addVehicleFormData.hourly_charges);
+    // formData.append("fleet_id", addVehicleFormData.fleet_id);
+
+    if (addVehicleFormData.insurancePolicy) {
+      formData.append("green_card", addVehicleFormData.insurancePolicy);
     }
-
-    const payload = {
-      ...addVehicleFormData,
-      hourly_charges: addVehicleFormData.hourly_charges,
-      vin: addVehicleFormData.vin.toUpperCase(),
-    };
-
-    if (payload.fleet_id.trim() === "") {
-      delete payload.fleet_id;
+    if (addVehicleFormData.technicalInspection) {
+      formData.append(
+        "periodic_inspection",
+        addVehicleFormData.technicalInspection
+      );
+    }
+    if (addVehicleFormData.specialConditionsPolicy) {
+      formData.append(
+        "insurance_policy",
+        addVehicleFormData.specialConditionsPolicy
+      );
+    }
+    if (addVehicleFormData.rentalAgreement) {
+      formData.append("dua", addVehicleFormData.rentalAgreement);
     }
 
     try {
@@ -279,19 +300,13 @@ const Vehicles = ({ onVehicleClick }) => {
         `https://boldrides.com/api/boldriders/organization/${orgId}/createVehicle`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+          body: formData,
         }
       );
 
       if (!response.ok) {
         const result = await response.json();
-        setAddError(
-          (addVehicleFormData.fleet_id && "Fleet " + result.message) ||
-            "Error in adding this vehicle."
-        );
+        setAddError(result.message || "Error in adding this vehicle.");
         setButtonLoading(false);
         return;
       }
@@ -309,6 +324,11 @@ const Vehicles = ({ onVehicleClick }) => {
         jump_start: false,
         rental: false,
         hourly_charges: 0,
+        assist: false,
+        insurancePolicy: null,
+        rentalAgreement: null,
+        specialConditionsPolicy: null,
+        technicalInspection: null,
       });
       fetchVehiclesData();
     } catch (error) {

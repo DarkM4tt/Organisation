@@ -15,7 +15,7 @@ import carImage from "../../assets/carBigImage.png";
 import LoadingAnimation from "../common/LoadingAnimation";
 import checkedIcon from "../../assets/checked.svg";
 import uncheckedIcon from "../../assets/unchecked.svg";
-// import { useUpdateVehicleMutation } from "../../features/Vehicle/vehicleSlice";
+import { useUpdateVehicleMutation } from "../../features/Vehicle/vehicleSlice";
 
 const VehicleInfo = ({
   selectedVehicleId,
@@ -35,7 +35,7 @@ const VehicleInfo = ({
   const [uploadingDocument, setUploadingDocument] = useState({});
   const [formData, setFormData] = useState({});
   const [savebuttondisable, setsavebuttondisable] = useState(true);
-  // const [updateVehicle] = useUpdateVehicleMutation();
+  const [updateVehicle] = useUpdateVehicleMutation();
 
   const renderCheckboxGroup = (label, fieldName) => (
     <Box sx={{ flex: 1, display: "flex", gap: 2, alignItems: "center" }}>
@@ -99,6 +99,7 @@ const VehicleInfo = ({
         pet_friendly: response.vehicle?.pet_friendly || false,
         rentable: response.vehicle?.rental || false,
         jump_start: response.vehicle?.jump_start || false,
+        assist: response.vehicle?.assist || false,
       });
       setDriverDetails(response.assigned_driver);
     } catch (err) {
@@ -109,7 +110,10 @@ const VehicleInfo = ({
   }, [selectedVehicleId]);
 
   const handleHourlycharges = (e) => {
-    setFormData({ ...formData, rent_hourly_charges: parseInt(e.target.value) });
+    setFormData({
+      ...formData,
+      rent_hourly_charges: parseFloat(e.target.value),
+    });
   };
 
   const handleUpload = (documentType) => {
@@ -255,17 +259,20 @@ const VehicleInfo = ({
   }
 
   const handleSubmit = async () => {
-    console.log(formData);
-
+    setAssignError("");
+    !formData.rentable && delete formData.rent_hourly_charges;
+    if (formData.rentable && !formData.rent_hourly_charges) {
+      setAssignError("Add hourly charges!");
+      return;
+    }
     try {
-      // Make the PUT request with RTK Query
-      // const response = await updateVehicle({
-      //   vehicleId: vehicleDetails._id,
-      //   data: formData, // Payload for PUT request
-      // });
-
-      // If request is successful (status 200)
-      setsavebuttondisable(true); // Hide Save Changes button
+      const response = await updateVehicle({
+        vehicleId: vehicleDetails._id,
+        data: formData,
+      });
+      console.log(response);
+      setsavebuttondisable(true);
+      fetchVehicleData();
     } catch (error) {
       setAssignError("Error updating vehicle");
     }
