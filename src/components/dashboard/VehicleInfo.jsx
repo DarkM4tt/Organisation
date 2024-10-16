@@ -110,6 +110,7 @@ const VehicleInfo = ({
   }, [selectedVehicleId]);
 
   const handleHourlycharges = (e) => {
+    setsavebuttondisable(false);
     setFormData({
       ...formData,
       rent_hourly_charges: parseFloat(e.target.value),

@@ -274,7 +274,8 @@ const Vehicles = ({ onVehicleClick }) => {
     formData.append("rental", addVehicleFormData.rental);
     addVehicleFormData.rental &&
       formData.append("rent_hourly_charges", addVehicleFormData.hourly_charges);
-    // formData.append("fleet_id", addVehicleFormData.fleet_id);
+    addVehicleFormData.fleet_id &&
+      formData.append("vehicle_id", addVehicleFormData.fleet_id);
 
     if (addVehicleFormData.insurancePolicy) {
       formData.append("green_card", addVehicleFormData.insurancePolicy);
