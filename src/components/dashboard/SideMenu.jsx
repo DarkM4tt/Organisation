@@ -16,7 +16,7 @@ const menuItems = [
   { name: "Bold Connect" },
   { name: "Reports" },
   { name: "Documents" },
-  { name: "Balance" },
+  { name: "Notifications" },
   { name: "Settings" },
 ];
 

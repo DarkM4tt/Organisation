@@ -13,17 +13,21 @@ import LoadingAnimation from "../common/LoadingAnimation";
 import { countries } from "../../utils/countries";
 
 const AddDriver = ({
-  input,
-  setInput,
+  inputEmail,
+  setInputEmail,
+  inputNumber,
+  setInputNumber,
+  inputCode,
+  setInputCode,
+  inputCountry,
+  setInputCountry,
   handleAddDriver,
   handleClose,
   addLoading,
   addError,
   addSuccess,
-  countryCode,
-  handleCountryCodeChange,
 }) => {
-  const isFormValid = input.length > 5;
+  const isFormValid = inputEmail && inputCountry && inputCode;
 
   const CustomPopper = (props) => {
     return (
@@ -45,6 +49,10 @@ const AddDriver = ({
         style={{ width: "fit-content", display: "flex", paddingBlock: "4px" }}
       />
     );
+  };
+
+  const handleCountryCodeChange = (event, newValue) => {
+    setInputCountry(newValue);
   };
 
   return (
@@ -81,8 +89,8 @@ const AddDriver = ({
             Enter driver’s email <span className="text-red-500">*</span>
           </Typography>
           <TextField
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={inputEmail}
+            onChange={(e) => setInputEmail(e.target.value)}
             placeholder="Enter driver’s email or phone to invite"
             fullWidth
             variant="outlined"
@@ -96,7 +104,7 @@ const AddDriver = ({
             <Autocomplete
               sx={{ height: "56px" }}
               options={countries}
-              value={countryCode}
+              value={inputCountry}
               onChange={handleCountryCodeChange}
               getOptionLabel={(option) => option.label}
               renderOption={(props, option) => (
@@ -124,12 +132,12 @@ const AddDriver = ({
                   sx={{ width: 100 }}
                   InputProps={{
                     ...params.InputProps,
-                    startAdornment: countryCode ? (
+                    startAdornment: inputCountry ? (
                       <img
                         loading="lazy"
                         className="w-9"
-                        src={`https://flagcdn.com/w20/${countryCode.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${countryCode.code.toLowerCase()}.png 2x`}
+                        src={`https://flagcdn.com/w20/${inputCountry.code.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/w40/${inputCountry.code.toLowerCase()}.png 2x`}
                         alt=""
                         style={{ marginRight: "8px" }}
                       />
@@ -156,8 +164,8 @@ const AddDriver = ({
               PaperComponent={CustomPaper}
             />
             <TextField
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              value={inputNumber}
+              onChange={(e) => setInputNumber(e.target.value)}
               placeholder="Enter driver’s email or phone to invite"
               fullWidth
               variant="outlined"
@@ -170,8 +178,8 @@ const AddDriver = ({
           Recommendation code
         </Typography>
         <TextField
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={inputCode}
+          onChange={(e) => setInputCode(e.target.value)}
           placeholder="Enter driver’s email or phone to invite"
           fullWidth
           variant="outlined"
@@ -215,15 +223,19 @@ const AddDriver = ({
 };
 
 AddDriver.propTypes = {
-  setInput: PropTypes.func.isRequired,
+  inputEmail: PropTypes.string.isRequired,
+  setInputEmail: PropTypes.func.isRequired,
+  inputCode: PropTypes.string.isRequired,
+  setInputCode: PropTypes.func.isRequired,
+  inputNumber: PropTypes.string.isRequired,
+  setInputNumber: PropTypes.func.isRequired,
+  inputCountry: PropTypes.string.isRequired,
+  setInputCountry: PropTypes.func.isRequired,
   handleAddDriver: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  input: PropTypes.string.isRequired,
   addLoading: PropTypes.bool.isRequired,
   addSuccess: PropTypes.bool.isRequired,
   addError: PropTypes.string.isRequired,
-  countryCode: PropTypes.string.isRequired,
-  handleCountryCodeChange: PropTypes.func.isRequired,
 };
 
 export default AddDriver;

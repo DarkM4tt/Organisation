@@ -39,7 +39,10 @@ const Drivers = ({ onDriverClick }) => {
   const [documents, setDocuments] = useState("");
   const [search, setSearch] = useState("");
   const [menuAnchor, setMenuAnchor] = useState(null);
-  const [input, setInput] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputCountry, setInputCountry] = useState("");
+  const [inputNumber, setInputNumber] = useState("");
+  const [inputCode, setInputCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState("");
@@ -151,8 +154,11 @@ const Drivers = ({ onDriverClick }) => {
   const handleEmailInvite = async () => {
     const orgId = localStorage.getItem("org_id");
     const url = `https://boldrides.com/api/boldriders/organization/${orgId}/sentInvitationLinkToDriver`;
+    const phoneNumber = "+" + inputCountry.phone + inputNumber;
     const data = {
-      email: input,
+      email: inputEmail,
+      phone_number: phoneNumber,
+      recommendation: inputCode,
     };
     try {
       const response = await fetch(url, {
@@ -173,28 +179,30 @@ const Drivers = ({ onDriverClick }) => {
       setAddError(err);
     } finally {
       setAddLoading(false);
-      setInput("");
+      setInputEmail("");
+      setInputNumber("");
+      setInputCode("");
+      setInputCountry("");
     }
   };
 
-  const handlePhoneInvite = () => {};
-
   const handleAddDriver = () => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const phoneRegex = /^\d{10}$/;
+    if (!emailRegex.test(inputEmail)) {
+      setAddError("Enter valid email!");
+      return;
+    }
+    if (!phoneRegex.test(inputNumber) || !inputCountry) {
+      setAddError("Enter valid phone number with country code!");
+      return;
+    }
+
     setAddLoading(true);
     setAddError("");
     setAddSuccess(false);
-    const emailRegex = /\S+@\S+\.\S+/;
-    const phoneRegex = /^\+[0-9]{1,4}[0-9]{6,}$/;
 
-    if (emailRegex.test(input)) {
-      handleEmailInvite();
-    } else if (phoneRegex.test(input)) {
-      handlePhoneInvite();
-    } else {
-      setAddLoading(false);
-      setAddError("Enter a valid email or mobile number with country code!");
-      return;
-    }
+    handleEmailInvite();
   };
 
   const handleMenuOpen = (event, driver) => {
@@ -314,8 +322,14 @@ const Drivers = ({ onDriverClick }) => {
       </div>
       {showAddVehicleModal && (
         <AddDriver
-          input={input}
-          setInput={setInput}
+          inputEmail={inputEmail}
+          setInputEmail={setInputEmail}
+          inputCountry={inputCountry}
+          setInputCountry={setInputCountry}
+          inputNumber={inputNumber}
+          setInputNumber={setInputNumber}
+          inputCode={inputCode}
+          setInputCode={setInputCode}
           handleAddDriver={handleAddDriver}
           handleClose={() => {
             setAddError("");

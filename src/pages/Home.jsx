@@ -9,7 +9,6 @@ import Settings from "./../components/dashboard/Settings";
 import Documents from "./../components/dashboard/Documents";
 import LiveMap from "./../components/dashboard/LiveMap";
 import Reports from "./../components/dashboard/Reports";
-import Balance from "./../components/dashboard/Balance";
 import VehicleInfo from "../components/dashboard/VehicleInfo";
 import DriverInfo from "../components/dashboard/DriverInfo";
 import Intercity from "../components/dashboard/Intercity";
@@ -23,6 +22,7 @@ import Cabs from "../components/dashboard/Cabs";
 import Packages from "../components/dashboard/Packages";
 import Jumpstart from "../components/dashboard/Jumpstart";
 import BoldConnect from "../components/dashboard/BoldConnect";
+import Notifications from "../components/dashboard/Notifications";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("Dashboard");
@@ -122,8 +122,8 @@ const Home = () => {
         return <Reports />;
       case "Documents":
         return <Documents />;
-      case "Balance":
-        return <Balance />;
+      case "Notifications":
+        return <Notifications />;
       case "Settings":
         return <Settings />;
       default:
