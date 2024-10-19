@@ -13,7 +13,6 @@ import { useCallback, useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import profileImage from "../../assets/profile.png";
 import carImage from "../../assets/carBigImage.png";
-import tickIcon from "../../assets/tick.svg";
 import LoadingAnimation from "../common/LoadingAnimation";
 import CloseIcon from "@mui/icons-material/Close";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
@@ -200,7 +199,6 @@ const DriverInfo = ({
                   gap="15px"
                   sx={{ color: "rgba(24, 196, 184, 1)", marginTop: 2 }}
                 >
-                  <img src={tickIcon} alt="tickIcon" />
                   <span>Valid until {item.date}</span>
                 </Box>
               </div>

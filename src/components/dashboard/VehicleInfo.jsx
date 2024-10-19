@@ -8,6 +8,9 @@ import {
   TextField,
   Box,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import profileImage from "../../assets/profile.png";
@@ -16,6 +19,8 @@ import LoadingAnimation from "../common/LoadingAnimation";
 import checkedIcon from "../../assets/checked.svg";
 import uncheckedIcon from "../../assets/unchecked.svg";
 import { useUpdateVehicleMutation } from "../../features/Vehicle/vehicleSlice";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import CloseIcon from "@mui/icons-material/Close";
 
 const VehicleInfo = ({
   selectedVehicleId,
@@ -27,6 +32,10 @@ const VehicleInfo = ({
   const [loading, setLoading] = useState(false);
   const [removeLoading, setRemoveLoading] = useState(false);
   const [error, setError] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [modalTitle, setModalTitle] = useState("");
+  const [isPdf, setIsPdf] = useState(false);
   const [removeError, setRemoveError] = useState("");
   const [uploadError, setUploadError] = useState("");
   const [driverEmail, setDriverEmail] = useState("");
@@ -247,6 +256,28 @@ const VehicleInfo = ({
     }
   };
 
+  const handleViewDocument = (url, label) => {
+    if (!url) {
+      setUploadError("Error in viewing this vehicle document!");
+      return;
+    }
+    const extension = url.split(".").pop();
+    if (extension === "pdf") {
+      setIsPdf(true);
+    } else if (["jpg", "jpeg", "png"].includes(extension)) {
+      setIsPdf(false);
+    }
+    setModalContent(url);
+    setModalTitle(label);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setModalContent(null);
+    setModalTitle("");
+  };
+
   if (loading) {
     return (
       <div className="mx-auto w-full h-full ">
@@ -415,6 +446,8 @@ const VehicleInfo = ({
               date: "Valid until December 25, 2024",
               type: "carInsurancePolicyGreenCard",
               value: "car_insurance_policy_green_card",
+              url: vehicleDetails?.documents?.car_insurance_policy_green_card
+                ?.url,
             },
             {
               label:
@@ -422,6 +455,8 @@ const VehicleInfo = ({
               date: "Valid until December 25, 2024",
               type: "carInsuranceSpecialConditions",
               value: "car_insurance_special_conditions",
+              url: vehicleDetails?.documents?.car_insurance_special_conditions
+                ?.url,
             },
             {
               label:
@@ -429,6 +464,7 @@ const VehicleInfo = ({
               date: "Valid until December 25, 2024",
               type: "duaSingleCarDocument",
               value: "dua_single_car_document",
+              url: vehicleDetails?.documents?.dua_single_car_document?.url,
             },
             {
               label:
@@ -436,6 +472,8 @@ const VehicleInfo = ({
               date: "Valid until December 25, 2024",
               type: "periodicTechnicalInspection",
               value: "periodic_technical_inspection",
+              url: vehicleDetails?.documents?.periodic_technical_inspection
+                ?.url,
             },
           ].map((item, index) => (
             <Card
@@ -473,13 +511,18 @@ const VehicleInfo = ({
                     backgroundColor: "rgba(238, 238, 238, 1)",
                   },
                 }}
-                onClick={() => handleUpload(item.type)}
+                onClick={() => {
+                  vehicleDetails?.documents &&
+                  vehicleDetails?.documents[item.value]
+                    ? handleViewDocument(item.url, item.label)
+                    : handleUpload(item.type);
+                }}
               >
                 {uploadingDocument === item.type ? (
                   <LoadingAnimation width={30} height={30} />
                 ) : vehicleDetails?.documents &&
                   vehicleDetails?.documents[item.value] ? (
-                  "Re-upload"
+                  "View"
                 ) : (
                   "Upload"
                 )}
@@ -614,6 +657,48 @@ const VehicleInfo = ({
           )}
         </div>
       </div>
+
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        maxWidth="lg"
+        fullWidth
+      >
+        <DialogTitle sx={{ m: 0, py: 2, pr: 8 }}>
+          {modalTitle}
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseModal}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          {modalContent && (
+            <>
+              {isPdf ? (
+                <Worker
+                  workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+                >
+                  <Viewer fileUrl={modalContent} />
+                </Worker>
+              ) : (
+                <img
+                  src={modalContent}
+                  alt={modalTitle}
+                  style={{ width: "100%" }}
+                />
+              )}
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

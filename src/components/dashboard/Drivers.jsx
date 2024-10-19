@@ -339,6 +339,78 @@ const Drivers = ({ onDriverClick }) => {
           addSuccess={addSuccess}
         />
       )}
+      <div className="flex justify-between">
+        <div className="flex space-x-4 h-10">
+          <Button
+            variant={showAll ? "contained" : "outlined"}
+            sx={{
+              border: "none",
+              textTransform: "none",
+              fontWeight: "600",
+              fontSize: "16px",
+              backgroundColor: showAll ? "black" : "#EEEEEE",
+              color: showAll ? "white" : "black",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: showAll ? "black" : "#EEEEEE",
+                border: "none",
+              },
+            }}
+            onClick={handleAllClick}
+          >
+            All
+          </Button>
+          <CustomSelectDropdown
+            value={state}
+            onChange={handleStateChange}
+            name="Status"
+            options={["Active", "Inactive"]}
+          />
+          <CustomSelectDropdown
+            value={assignment}
+            onChange={handleAssignmentChange}
+            name="Assignment"
+            options={["Assigned", "Not assigned"]}
+          />
+          <CustomSelectDropdown
+            value={documents}
+            onChange={handleDocumentsChange}
+            name="Documents"
+            options={[
+              "Approved",
+              "Pending",
+              "Lacking",
+              "Rejected Documents",
+              "About to expire",
+            ]}
+          />
+        </div>
+        <div className="flex space-x-4 h-10">
+          <TextField
+            variant="outlined"
+            placeholder="Search for drivers"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <img
+                    src={searchIcon}
+                    alt="search icon"
+                    style={{ width: 25 }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              width: "150%",
+              ".MuiOutlinedInput-input": {
+                padding: "10px 4px",
+              },
+            }}
+          />
+        </div>
+      </div>
       {filteredDrivers.length === 0 && (
         <p className="text-red-400 font-redhat text-xl p-4 font-bold">
           No drivers invited till now!
@@ -347,79 +419,6 @@ const Drivers = ({ onDriverClick }) => {
       {filteredDrivers && filteredDrivers.length !== 0 && (
         <>
           <div className="flex flex-col gap-8">
-            <div className="flex justify-between">
-              <div className="flex space-x-4 h-10">
-                <Button
-                  variant={showAll ? "contained" : "outlined"}
-                  sx={{
-                    border: "none",
-                    textTransform: "none",
-                    fontWeight: "600",
-                    fontSize: "16px",
-                    backgroundColor: showAll ? "black" : "#EEEEEE",
-                    color: showAll ? "white" : "black",
-                    borderRadius: "10px",
-                    "&:hover": {
-                      backgroundColor: showAll ? "black" : "#EEEEEE",
-                      border: "none",
-                    },
-                  }}
-                  onClick={handleAllClick}
-                >
-                  All
-                </Button>
-                <CustomSelectDropdown
-                  value={state}
-                  onChange={handleStateChange}
-                  name="Status"
-                  options={["Active", "Inactive"]}
-                />
-                <CustomSelectDropdown
-                  value={assignment}
-                  onChange={handleAssignmentChange}
-                  name="Assignment"
-                  options={["Assigned", "Not assigned"]}
-                />
-                <CustomSelectDropdown
-                  value={documents}
-                  onChange={handleDocumentsChange}
-                  name="Documents"
-                  options={[
-                    "Approved",
-                    "Pending",
-                    "Lacking",
-                    "Rejected Documents",
-                    "About to expire",
-                  ]}
-                />
-              </div>
-              <div className="flex space-x-4 h-10">
-                <TextField
-                  variant="outlined"
-                  placeholder="Search for drivers"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <img
-                          src={searchIcon}
-                          alt="search icon"
-                          style={{ width: 25 }}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    width: "150%",
-                    ".MuiOutlinedInput-input": {
-                      padding: "10px 4px",
-                    },
-                  }}
-                />
-              </div>
-            </div>
-
             <TableContainer>
               <Table
                 sx={{

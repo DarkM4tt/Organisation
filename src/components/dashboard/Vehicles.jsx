@@ -145,10 +145,10 @@ const Vehicles = ({ onVehicleClick }) => {
       if (assignment) {
         assignment === "Not assigned"
           ? (filtered = filtered.filter(
-              (vehicle) => vehicle?.assigned_driver_id === null
+              (vehicle) => vehicle?.assigned_driver_id !== null
             ))
           : (filtered = filtered.filter(
-              (vehicle) => vehicle?.assigned_driver_id !== null
+              (vehicle) => vehicle?.assigned_driver_id === null
             ));
       }
       if (documents) {
