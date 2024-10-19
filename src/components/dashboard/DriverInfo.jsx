@@ -1,10 +1,22 @@
 /* eslint-disable react/prop-types */
-import { Button, Card, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import profileImage from "../../assets/profile.png";
 import carImage from "../../assets/carBigImage.png";
+import tickIcon from "../../assets/tick.svg";
 import LoadingAnimation from "../common/LoadingAnimation";
+import CloseIcon from "@mui/icons-material/Close";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
 
 const DriverInfo = ({
   selectedDriverId,
@@ -14,8 +26,10 @@ const DriverInfo = ({
   const [driverDetails, setDriverDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [viewError, setViewError] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [modalTitle, setModalTitle] = useState("");
+  const [isPdf, setIsPdf] = useState(false);
 
   const fetchDriverData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
@@ -40,6 +54,28 @@ const DriverInfo = ({
   useEffect(() => {
     fetchDriverData();
   }, [fetchDriverData]);
+
+  const handleViewDocument = (url, label) => {
+    if (!url) {
+      setError("Error viewing the document!");
+      return;
+    }
+    const extension = url.split(".").pop();
+    if (extension === "pdf") {
+      setIsPdf(true);
+    } else if (["jpg", "jpeg", "png"].includes(extension)) {
+      setIsPdf(false);
+    }
+    setModalContent(url);
+    setModalTitle(label);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setModalContent(null);
+    setModalTitle("");
+  };
 
   if (loading) {
     return (
@@ -126,18 +162,22 @@ const DriverInfo = ({
             {
               label: " TVDE Driver Certificate ",
               date: "Valid until December 25, 2024",
+              url: driverDetails?.documents?.tevd_certificate?.url,
             },
             {
               label: "Driver’s License",
               date: "Valid until December 25, 2024",
+              url: driverDetails?.documents?.license?.url,
             },
             {
               label: "Proof of Identity",
               date: "Valid until December 25, 2024",
+              url: driverDetails?.documents?.proof_of_identity?.url,
             },
             {
               label: "Criminal Record",
               date: "Valid until December 25, 2024",
+              url: driverDetails?.documents?.criminal_records?.url,
             },
           ].map((item, index) => (
             <Card
@@ -151,17 +191,18 @@ const DriverInfo = ({
                 borderBottom: "1px solid rgba(221, 221, 221, 1)",
               }}
             >
-              <div className="md:max-w-[80%]">
+              <div className="md:max-w-[60%]">
                 <Typography variant="body1" fontWeight="700">
                   {item.label}
                 </Typography>
-                <Typography
-                  variant="body1"
-                  fontWeight="500"
-                  sx={{ color: "rgba(24, 196, 184, 1)", marginTop: 1 }}
+                <Box
+                  display="flex"
+                  gap="15px"
+                  sx={{ color: "rgba(24, 196, 184, 1)", marginTop: 2 }}
                 >
-                  {item.date}
-                </Typography>
+                  <img src={tickIcon} alt="tickIcon" />
+                  <span>Valid until {item.date}</span>
+                </Box>
               </div>
               <Button
                 variant="contained"
@@ -175,6 +216,7 @@ const DriverInfo = ({
                     backgroundColor: "rgba(238, 238, 238, 1)",
                   },
                 }}
+                onClick={() => handleViewDocument(item.url, item.label)}
               >
                 View
               </Button>
@@ -221,6 +263,48 @@ const DriverInfo = ({
           )}
         </div>
       </div>
+
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        maxWidth="lg"
+        fullWidth
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          {modalTitle}
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseModal}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          {modalContent && (
+            <>
+              {isPdf ? (
+                <Worker
+                  workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+                >
+                  <Viewer fileUrl={modalContent} />
+                </Worker>
+              ) : (
+                <img
+                  src={modalContent}
+                  alt={modalTitle}
+                  style={{ width: "100%" }}
+                />
+              )}
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

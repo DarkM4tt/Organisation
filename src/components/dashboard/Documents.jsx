@@ -20,9 +20,9 @@ const Documents = () => {
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null); // can store URL for images or PDFs
+  const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
-  const [isPdf, setIsPdf] = useState(false); // Track if the content is a PDF
+  const [isPdf, setIsPdf] = useState(false);
 
   const fetchDocs = useCallback(async () => {
     setLoading(true);
@@ -50,13 +50,12 @@ const Documents = () => {
   }, [fetchDocs]);
 
   const handleViewDocument = (url, label) => {
-    const extension = url.split(".").pop(); // Get the file extension
+    const extension = url.split(".").pop();
     if (extension === "pdf") {
-      setIsPdf(true); // Mark as PDF
+      setIsPdf(true);
     } else if (["jpg", "jpeg", "png"].includes(extension)) {
-      setIsPdf(false); // Mark as Image
+      setIsPdf(false);
     }
-    // Open content in modal
     setModalContent(url);
     setModalTitle(label);
     setOpenModal(true);

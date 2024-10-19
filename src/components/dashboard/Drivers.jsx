@@ -188,12 +188,11 @@ const Drivers = ({ onDriverClick }) => {
 
   const handleAddDriver = () => {
     const emailRegex = /\S+@\S+\.\S+/;
-    const phoneRegex = /^\d{10}$/;
     if (!emailRegex.test(inputEmail)) {
       setAddError("Enter valid email!");
       return;
     }
-    if (!phoneRegex.test(inputNumber) || !inputCountry) {
+    if (!inputNumber.length > 5 || !inputCountry) {
       setAddError("Enter valid phone number with country code!");
       return;
     }

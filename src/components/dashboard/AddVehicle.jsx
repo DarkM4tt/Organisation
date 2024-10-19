@@ -111,11 +111,6 @@ const AddVehicle = ({
           fieldName: "insurancePolicy",
         },
         {
-          label:
-            "[Partner Only] > Periodic Technical Inspection (Vehicles over 1 year old)",
-          fieldName: "technicalInspection",
-        },
-        {
           label: "[Partner Only] > Car Insurance Policy (Special Conditions)",
           fieldName: "specialConditionsPolicy",
         },
@@ -123,6 +118,11 @@ const AddVehicle = ({
           label:
             "[Partner Only] > DUA - Single Car Document (front and back) or Rental Agreement + DUA/DAV or Declaration of Assignment of Use + DUA/DAV",
           fieldName: "rentalAgreement",
+        },
+        {
+          label:
+            "[Partner Only] > Periodic Technical Inspection (Vehicles over 1 year old)",
+          fieldName: "technicalInspection",
         },
       ].map((fileInput) => (
         <Box key={fileInput.fieldName} mb="12px">
