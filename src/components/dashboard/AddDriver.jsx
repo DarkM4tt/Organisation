@@ -27,7 +27,7 @@ const AddDriver = ({
   addError,
   addSuccess,
 }) => {
-  const isFormValid = inputEmail && inputCountry && inputCode;
+  const isFormValid = inputEmail && inputCountry && inputNumber;
 
   const CustomPopper = (props) => {
     return (
