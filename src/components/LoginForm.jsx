@@ -68,7 +68,7 @@ function LoginForm() {
 
   const handleContinue = async () => {
     const emailRegex = /\S+@\S+\.\S+/;
-    const phoneRegex = /^[0-9]{6,15}$/;
+    // const phoneRegex = /^[0-9]{6,15}$/;
 
     if (!input) {
       setError(true);
@@ -77,7 +77,7 @@ function LoginForm() {
 
     if (!phoneSignIn && emailRegex.test(input)) {
       handleEmailContinue();
-    } else if (phoneSignIn && countryCode && phoneRegex.test(input)) {
+    } else if (phoneSignIn && countryCode && input.length > 5) {
       setError(false);
       handlePhoneSignIn();
     } else {
