@@ -39,12 +39,12 @@ const Zones = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data)
+      console.log(data);
       const carOptionsData = data?.categories?.map((carobject) => ({
         carType: carobject.name,
         vehicle_category: carobject._id,
       }));
-      console.log(carOptions)
+      console.log(carOptions);
       setcaroptions(carOptionsData);
     }
   }, [data]);
@@ -159,153 +159,153 @@ const Zones = () => {
     );
   }
 
-  return ( <div>Zones</div>
-    // <div className="p-6">
-    //   <p className="font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-black font-redhat">
-    //     Business zone name (Default)
-    //   </p>
-    //   <div className="py-4">
-    //     <TextField
-    //       variant="outlined"
-    //       placeholder="Write a new business zone name"
-    //       value={search}
-    //       onChange={(e) => setSearch(e.target.value)}
-    //       sx={{
-    //         backgroundColor: "white",
-    //         width: "100%",
-    //         ".MuiOutlinedInput-input": {
-    //           padding: "10px 16px",
-    //         },
-    //       }}
-    //     />
-    //   </div>
-    //   <div style={{ position: "relative", width: "100%" }}>
-    //     <div
-    //       className="hidden md:flex"
-    //       style={{
-    //         marginBottom: "10px",
-    //         position: "absolute",
-    //         zIndex: 1,
-    //         right: "10%",
-    //         top: "1%",
-    //         width: "30%",
-    //       }}
-    //     >
-    //       <Autocomplete
-    //         onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
-    //         onPlaceChanged={onPlaceChanged}
-    //       >
-    //         <input
-    //           type="text"
-    //           placeholder="Search places"
-    //           style={{
-    //             boxSizing: "border-box",
-    //             border: "1px solid transparent",
-    //             width: "100%",
-    //             height: "32px",
-    //             padding: "0 12px",
-    //             borderRadius: "3px",
-    //             boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
-    //             fontSize: "14px",
-    //             outline: "none",
-    //             textOverflow: "ellipses",
-    //           }}
-    //         />
-    //       </Autocomplete>
-    //     </div>
-    //     <GoogleMap
-    //       mapContainerStyle={{ height: "500px", width: "" }}
-    //       center={{ lat: 40.756795, lng: -73.954298 }}
-    //       zoom={13}
-    //       onLoad={(map) => (mapRef.current = map)}
-    //     >
-    //       <DrawingManager
-    //         onLoad={(manager) => {
-    //           drawingManagerRef.current = manager;
-    //         }}
-    //         onOverlayComplete={onOverlayComplete}
-    //         options={{
-    //           drawingControl: drawingControlEnabled,
-    //           drawingControlOptions: {
-    //             position: window.google.maps.ControlPosition.TOP_CENTER,
-    //             drawingModes: [window.google.maps.drawing.OverlayType.POLYGON],
-    //           },
-    //           polygonOptions: {
-    //             editable: true,
-    //             draggable: true,
-    //           },
-    //         }}
-    //       />
-    //       {polygon.length > 0 && (
-    //         <Polygon
-    //           paths={polygon}
-    //           options={{
-    //             fillColor: "#2196F3",
-    //             fillOpacity: 0.4,
-    //             strokeColor: "#2196F3",
-    //             strokeOpacity: 1,
-    //             strokeWeight: 2,
-    //             editable: true,
-    //             draggable: true,
-    //           }}
-    //         />
-    //       )}
-    //     </GoogleMap>
-    //     <div className="flex flex-row-reverse py-4 gap-4">
-    //       <ColorButton
-    //         variant="contained"
-    //         sx={{
-    //           backgroundColor: "black",
-    //           fontWeight: 600,
-    //           color: "white",
-    //           fontFamily: "Red Hat Display, sans-serif",
-    //           textTransform: "none",
-    //           padding: "12px 24px",
-    //           borderRadius: "4px",
-    //           "&:hover": {
-    //             backgroundColor: "black",
-    //           },
-    //         }}
-    //         onClick={handleSubmit}
-    //       >
-    //         Submit
-    //       </ColorButton>
-    //       <ColorButton
-    //         className="text-xs md:text-sm lg:text-base"
-    //         variant="contained"
-    //         sx={{
-    //           backgroundColor: "#EEEEEE",
-    //           fontWeight: 600,
-    //           color: "black",
-    //           textTransform: "none",
-    //           padding: "12px 24px",
-    //           borderRadius: "4px",
-    //           "&:hover": {
-    //             backgroundColor: "#EEEEEE",
-    //           },
-    //         }}
-    //         onClick={handleReset}
-    //       >
-    //         Reset
-    //       </ColorButton>
-    //       <ZonesModal
-    //         open={open}
-    //         handleClose={handleClose}
-    //         zoneName={search}
-    //         handleReset={handleReset}
-    //         carOptions={carOptions}
-    //       />
-    //     </div>
-    //   </div>
+  return (
+    <div className="p-6">
+      <p className="font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-black font-redhat">
+        Business zone name (Default)
+      </p>
+      <div className="py-4">
+        <TextField
+          variant="outlined"
+          placeholder="Write a new business zone name"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{
+            backgroundColor: "white",
+            width: "100%",
+            ".MuiOutlinedInput-input": {
+              padding: "10px 16px",
+            },
+          }}
+        />
+      </div>
+      <div style={{ position: "relative", width: "100%" }}>
+        <div
+          className="hidden md:flex"
+          style={{
+            marginBottom: "10px",
+            position: "absolute",
+            zIndex: 1,
+            right: "10%",
+            top: "1%",
+            width: "30%",
+          }}
+        >
+          <Autocomplete
+            onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
+            onPlaceChanged={onPlaceChanged}
+          >
+            <input
+              type="text"
+              placeholder="Search places"
+              style={{
+                boxSizing: "border-box",
+                border: "1px solid transparent",
+                width: "100%",
+                height: "32px",
+                padding: "0 12px",
+                borderRadius: "3px",
+                boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+                fontSize: "14px",
+                outline: "none",
+                textOverflow: "ellipses",
+              }}
+            />
+          </Autocomplete>
+        </div>
+        <GoogleMap
+          mapContainerStyle={{ height: "500px", width: "" }}
+          center={{ lat: 40.756795, lng: -73.954298 }}
+          zoom={13}
+          onLoad={(map) => (mapRef.current = map)}
+        >
+          <DrawingManager
+            onLoad={(manager) => {
+              drawingManagerRef.current = manager;
+            }}
+            onOverlayComplete={onOverlayComplete}
+            options={{
+              drawingControl: drawingControlEnabled,
+              drawingControlOptions: {
+                position: window.google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: [window.google.maps.drawing.OverlayType.POLYGON],
+              },
+              polygonOptions: {
+                editable: true,
+                draggable: true,
+              },
+            }}
+          />
+          {polygon.length > 0 && (
+            <Polygon
+              paths={polygon}
+              options={{
+                fillColor: "#2196F3",
+                fillOpacity: 0.4,
+                strokeColor: "#2196F3",
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                editable: true,
+                draggable: true,
+              }}
+            />
+          )}
+        </GoogleMap>
+        <div className="flex flex-row-reverse py-4 gap-4">
+          <ColorButton
+            variant="contained"
+            sx={{
+              backgroundColor: "black",
+              fontWeight: 600,
+              color: "white",
+              fontFamily: "Red Hat Display, sans-serif",
+              textTransform: "none",
+              padding: "12px 24px",
+              borderRadius: "4px",
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
+            onClick={handleSubmit}
+          >
+            Submit
+          </ColorButton>
+          <ColorButton
+            className="text-xs md:text-sm lg:text-base"
+            variant="contained"
+            sx={{
+              backgroundColor: "#EEEEEE",
+              fontWeight: 600,
+              color: "black",
+              textTransform: "none",
+              padding: "12px 24px",
+              borderRadius: "4px",
+              "&:hover": {
+                backgroundColor: "#EEEEEE",
+              },
+            }}
+            onClick={handleReset}
+          >
+            Reset
+          </ColorButton>
+          <ZonesModal
+            open={open}
+            handleClose={handleClose}
+            zoneName={search}
+            handleReset={handleReset}
+            carOptions={carOptions}
+          />
+        </div>
+      </div>
 
-    //   {zoneData && (
-    //     <Zoneslist
-    //       sampleData={zoneData}
-    //       openmodal={setOpen}
-    //       carOptions={carOptions}
-    //     />
-    //   )}
-    // </div>
+      {zoneData && (
+        <Zoneslist
+          sampleData={zoneData}
+          openmodal={setOpen}
+          carOptions={carOptions}
+        />
+      )}
+    </div>
   );
 };
 

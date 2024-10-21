@@ -13,6 +13,7 @@ const menuItems = [
     submenu: ["Cabs", "Packages", "Intercity", "Rentals", "Jumpstart"],
   },
   { name: "Live Map" },
+  { name: "Zones" },
   { name: "Bold Connect" },
   { name: "Reports" },
   { name: "Documents" },

@@ -23,6 +23,7 @@ import Packages from "../components/dashboard/Packages";
 import Jumpstart from "../components/dashboard/Jumpstart";
 import BoldConnect from "../components/dashboard/BoldConnect";
 import Notifications from "../components/dashboard/Notifications";
+import Zones from "./../components/dashboard/Zones";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("Dashboard");
@@ -122,6 +123,8 @@ const Home = () => {
         return <Reports />;
       case "Documents":
         return <Documents />;
+      case "Zones":
+        return <Zones />;
       case "Notifications":
         return <Notifications />;
       case "Settings":
