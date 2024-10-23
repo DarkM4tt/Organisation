@@ -92,7 +92,9 @@ const VehicleInfo = ({
 
   const fetchVehicleData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicle?vid=${selectedVehicleId}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicle?vid=${selectedVehicleId}`;
     setLoading(true);
     try {
       const res = await fetch(url);
@@ -148,7 +150,7 @@ const VehicleInfo = ({
         return;
       }
       if (file) {
-        const baseURL = "https://boldrides.com/api/boldriders";
+        const baseURL = import.meta.env.VITE_DEV_URL;
         const organizationId = localStorage.getItem("org_id");
         let apiUrl = "";
         let keyName = "";
@@ -208,7 +210,11 @@ const VehicleInfo = ({
     const orgId = localStorage.getItem("org_id");
     try {
       const response = await fetch(
-        `https://boldrides.com/api/boldriders/organization/${orgId}/disassociateVehicle/${vehicleDetails._id}/driver/${driverDetails._id}`,
+        `${
+          import.meta.env.VITE_DEV_URL
+        }/organization/${orgId}/disassociateVehicle/${
+          vehicleDetails._id
+        }/driver/${driverDetails._id}`,
         {
           method: "POST",
         }
@@ -234,7 +240,9 @@ const VehicleInfo = ({
     };
     try {
       const response = await fetch(
-        `https://boldrides.com/api/boldriders/organization/${orgId}/assignVehicle/${vehicleDetails._id}/driver`,
+        `${import.meta.env.VITE_DEV_URL}/organization/${orgId}/assignVehicle/${
+          vehicleDetails._id
+        }/driver`,
         {
           method: "POST",
           headers: {

@@ -48,7 +48,9 @@ const FleetInfo = ({
 
   const fetchFleetData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/fleet/${selectedFleetId}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/fleet/${selectedFleetId}`;
     setLoading(true);
     try {
       const res = await fetch(url);
@@ -107,7 +109,9 @@ const FleetInfo = ({
   const handleUppdateFleet = async () => {
     const orgId = localStorage.getItem("org_id");
     const vin = search; // Assuming the user enters the VIN in the search input
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicle?vin=${vin}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicle?vin=${vin}`;
 
     // Check if the VIN already exists in the fleetDetails.vehicles array
     const vinExists = fleetDetails.vehicles.some(
@@ -192,7 +196,9 @@ const FleetInfo = ({
 
   const handleSave = async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/fleet/${selectedFleetId}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/fleet/${selectedFleetId}`;
 
     const body = {
       name: fleetName,

@@ -35,7 +35,7 @@ const Fleets = ({ onFleetClick }) => {
 
   const fetchFleetsData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/fleets`;
+    const url = `${import.meta.env.VITE_DEV_URL}/organization/${orgId}/fleets`;
     setLoading(true);
     try {
       const res = await fetch(url);
@@ -59,7 +59,9 @@ const Fleets = ({ onFleetClick }) => {
 
   const fetchVehicleData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicle?vin=${vin}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicle?vin=${vin}`;
     setButtonLoading(true);
 
     const vehicleExists = fetchedVehicles.some(
@@ -113,7 +115,7 @@ const Fleets = ({ onFleetClick }) => {
     const orgId = localStorage.getItem("org_id");
     try {
       const response = await fetch(
-        `https://boldrides.com/api/boldriders/organization/${orgId}/fleet`,
+        `${import.meta.env.VITE_DEV_URL}/organization/${orgId}/fleet`,
         {
           method: "POST",
           headers: {
@@ -151,7 +153,7 @@ const Fleets = ({ onFleetClick }) => {
 
   const handleRemoveFleet = async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/fleet/`;
+    const url = `${import.meta.env.VITE_DEV_URL}/organization/${orgId}/fleet/`;
     setLoading(true);
     try {
       const response = await fetch(`${url}${selectedFleet._id}`, {

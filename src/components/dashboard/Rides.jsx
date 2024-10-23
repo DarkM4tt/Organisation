@@ -77,7 +77,9 @@ const Rides = () => {
 
   const fetchRidesData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/getallRides`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/getallRides`;
     setLoading(true);
     try {
       const res = await fetch(url);

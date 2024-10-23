@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authSlice = createApi({
   reducerPath: "authapi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://boldrides.com/api/boldriders/",
+    baseUrl: import.meta.env.VITE_DEV_URL,
   }),
   endpoints: (builder) => ({
     sendEmailOTP: builder.mutation({

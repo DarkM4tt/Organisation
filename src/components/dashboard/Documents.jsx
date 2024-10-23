@@ -29,7 +29,7 @@ const Documents = () => {
     const orgId = localStorage.getItem("org_id");
     try {
       const res = await fetch(
-        `https://boldrides.com/api/boldriders/organization_docs/${orgId}`
+        `${import.meta.env.VITE_DEV_URL}/organization_docs/${orgId}`
       );
       if (!res.ok) {
         setError("Error in fetching org documents!");

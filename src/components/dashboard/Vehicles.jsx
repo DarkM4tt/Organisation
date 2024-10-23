@@ -75,7 +75,9 @@ const Vehicles = ({ onVehicleClick }) => {
 
   const fetchVehiclesData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicles`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicles`;
     setLoading(true);
     setCategoryError(false);
     try {
@@ -97,7 +99,9 @@ const Vehicles = ({ onVehicleClick }) => {
 
   const fetchVehicleCategories = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicleCategories`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicleCategories`;
     setLoading(true);
     setCategoryError(false);
     try {
@@ -298,7 +302,7 @@ const Vehicles = ({ onVehicleClick }) => {
 
     try {
       const response = await fetch(
-        `https://boldrides.com/api/boldriders/organization/${orgId}/createVehicle`,
+        `${import.meta.env.VITE_DEV_URL}/organization/${orgId}/createVehicle`,
         {
           method: "POST",
           body: formData,
@@ -359,7 +363,9 @@ const Vehicles = ({ onVehicleClick }) => {
 
   const handleRemoveVehicle = async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/vehicle/`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/vehicle/`;
     setLoading(true);
     try {
       const response = await fetch(`${url}${selectedVehicle._id}`, {

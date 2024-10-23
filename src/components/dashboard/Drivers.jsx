@@ -52,7 +52,9 @@ const Drivers = ({ onDriverClick }) => {
 
   const fetchAllDrivers = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/getAllDrivers`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/getAllDrivers`;
     setLoading(true);
     try {
       const res = await fetch(url);
@@ -153,7 +155,9 @@ const Drivers = ({ onDriverClick }) => {
 
   const handleEmailInvite = async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/sentInvitationLinkToDriver`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/sentInvitationLinkToDriver`;
     const phoneNumber = "+" + inputCountry.phone + inputNumber;
     const data = {
       email: inputEmail,
@@ -229,7 +233,9 @@ const Drivers = ({ onDriverClick }) => {
 
   const handleRemoveDriver = async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/disassociateDriver/`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/disassociateDriver/`;
     setLoading(true);
     try {
       const response = await fetch(`${url}${selectedDriver._id}`, {

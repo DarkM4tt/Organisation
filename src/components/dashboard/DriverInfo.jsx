@@ -32,7 +32,9 @@ const DriverInfo = ({
 
   const fetchDriverData = useCallback(async () => {
     const orgId = localStorage.getItem("org_id");
-    const url = `https://boldrides.com/api/boldriders/organization/${orgId}/driver/${selectedDriverId}`;
+    const url = `${
+      import.meta.env.VITE_DEV_URL
+    }/organization/${orgId}/driver/${selectedDriverId}`;
     setLoading(true);
     try {
       const res = await fetch(url);
