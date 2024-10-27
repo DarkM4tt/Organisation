@@ -42,31 +42,20 @@ const mapContainerStyle = {
   width: "100%",
 };
 
-const center = {
-  lat: 38.7369,
-  lng: -9.1393,
-};
-
-const start = {
-  lat: 38.7375,
-  lng: -9.135,
-};
-
 const vehicle = {
   lat: 38.7369,
   lng: -9.1393,
 };
 
-const end = {
-  lat: 38.735,
-  lng: -9.1445,
+const start = { lat: 38.736946, lng: -9.139994 };
+const end = { lat: 38.742476, lng: -9.158691 };
+
+const center = {
+  lat: (start.lat + end.lat) / 2,
+  lng: (start.lng + end.lng) / 2,
 };
 
-const route = [
-  { lat: 38.737946, lng: -9.137685 },
-  { lat: 38.736946, lng: -9.142685 },
-  { lat: 38.736946, lng: -9.152685 },
-];
+const route = [start, { lat: 38.7385, lng: -9.148 }, end];
 
 const rideData = {
   rideId: 1954,
