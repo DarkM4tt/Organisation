@@ -22,7 +22,7 @@ import twoLeft from "../../assets/twoLeft.svg";
 import oneLeft from "../../assets/oneLeft.svg";
 import twoRight from "../../assets/twoRight.svg";
 import CustomSelectDropdown from "../common/CustomSelectDropdown";
-import RideModal from "./RideModal";
+import PackageRideModal from "./PackageRideModal";
 import LoadingAnimation from "../common/LoadingAnimation";
 
 const rides = [
@@ -583,7 +583,7 @@ const Packages = () => {
       </>
       {/* )} */}
       {selectedRideId && (
-        <RideModal
+        <PackageRideModal
           selectedRideId={selectedRideId}
           open={showRidesModal}
           handleClose={handleClose}

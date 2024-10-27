@@ -21,22 +21,6 @@ import fromlocation from "../../assets/fromlocation.svg";
 import tolocation from "../../assets/tolocation.svg";
 import { Menu, MenuItem } from "@mui/material";
 
-// Helper function to calculate distance between two lat/lng points
-// const haversineDistance = (coords1, coords2) => {
-//   const toRad = (x) => (x * Math.PI) / 180;
-//   const R = 6371; // Radius of the Earth in km
-//   const dLat = toRad(coords2.lat - coords1.lat);
-//   const dLng = toRad(coords2.lng - coords1.lng);
-//   const lat1 = toRad(coords1.lat);
-//   const lat2 = toRad(coords2.lat);
-
-//   const a =
-//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-//     Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(lat1) * Math.cos(lat2);
-//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//   return R * c;
-// };
-
 const mapContainerStyle = {
   height: "100%",
   width: "100%",
@@ -78,12 +62,10 @@ const rideData = {
   ],
 };
 
-const RideModal = ({ open, handleClose, selectedRideId }) => {
+const CabRideModal = ({ open, handleClose, selectedRideId }) => {
   const { isLoaded } = useGoogleMapsLoader();
   const { data: rides, error, isLoading } = useGetRideQuery(selectedRideId);
 
-  // const distance = haversineDistance(vehicle, end).toFixed(2); // Distance in km
-  // const eta = Math.ceil(distance / 0.5); // Assuming average speed of 30km/h (0.5km/min)
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -175,7 +157,7 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Distance/Time
               </p>
-              <p>{rides && rides?.distance_in_kilometers}km/28min</p>
+              <p>{rides && rides?.distance_in_kilometers} km</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
@@ -271,15 +253,6 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
                   />
                 </div>
               </OverlayView>
-              {/* <OverlayView
-                position={end}
-                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-              >
-                <div className="flex p-2 gap-2 rounded-lg w-28 bg-[#18C4B8] mt-2">
-                  <p className="text-white text-xs font-bold">{distance} km</p>
-                  <p className="text-white text-xs font-bold">{eta} min</p>
-                </div>
-              </OverlayView> */}
             </GoogleMap>
           </div>
         </Box>
@@ -288,10 +261,10 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
   );
 };
 
-RideModal.propTypes = {
+CabRideModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   selectedRideId: PropTypes.string.isRequired,
 };
 
-export default RideModal;
+export default CabRideModal;

@@ -20,7 +20,7 @@ import twoLeft from "../../assets/twoLeft.svg";
 import oneLeft from "../../assets/oneLeft.svg";
 import twoRight from "../../assets/twoRight.svg";
 import CustomSelectDropdown from "../common/CustomSelectDropdown";
-import RideModal from "./RideModal";
+import CabRideModal from "./CabRideModal";
 import LoadingAnimation from "../common/LoadingAnimation";
 
 const Cabs = () => {
@@ -285,7 +285,7 @@ const Cabs = () => {
                       fontWeight: "700",
                     }}
                   >
-                    Distance/Time
+                    Distance
                   </TableCell>
                   <TableCell align="right">
                     <img src={settingsIcon} alt="settingsIcon" />
@@ -347,7 +347,7 @@ const Cabs = () => {
                     </TableCell>
                     <TableCell>
                       <p className="font-normal text-base">
-                        {ride?.distance_in_kilometers + "km/" + "28min"}
+                        {ride?.distance_in_kilometers + " km"}
                       </p>
                     </TableCell>
                     <TableCell>
@@ -437,7 +437,7 @@ const Cabs = () => {
         </>
       )}
       {selectedRideId && (
-        <RideModal
+        <CabRideModal
           selectedRideId={selectedRideId}
           open={showRidesModal}
           handleClose={handleClose}
