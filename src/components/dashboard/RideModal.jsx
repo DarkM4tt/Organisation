@@ -22,30 +22,27 @@ import tolocation from "../../assets/tolocation.svg";
 import { Menu, MenuItem } from "@mui/material";
 
 // Helper function to calculate distance between two lat/lng points
-const haversineDistance = (coords1, coords2) => {
-  const toRad = (x) => (x * Math.PI) / 180;
-  const R = 6371; // Radius of the Earth in km
-  const dLat = toRad(coords2.lat - coords1.lat);
-  const dLng = toRad(coords2.lng - coords1.lng);
-  const lat1 = toRad(coords1.lat);
-  const lat2 = toRad(coords2.lat);
+// const haversineDistance = (coords1, coords2) => {
+//   const toRad = (x) => (x * Math.PI) / 180;
+//   const R = 6371; // Radius of the Earth in km
+//   const dLat = toRad(coords2.lat - coords1.lat);
+//   const dLng = toRad(coords2.lng - coords1.lng);
+//   const lat1 = toRad(coords1.lat);
+//   const lat2 = toRad(coords2.lat);
 
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(lat1) * Math.cos(lat2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-};
+//   const a =
+//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//     Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(lat1) * Math.cos(lat2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   return R * c;
+// };
 
 const mapContainerStyle = {
   height: "100%",
   width: "100%",
 };
 
-const vehicle = {
-  lat: 38.7369,
-  lng: -9.1393,
-};
+const vehicle = { lat: 38.7385, lng: -9.148 };
 
 const start = { lat: 38.736946, lng: -9.139994 };
 const end = { lat: 38.742476, lng: -9.158691 };
@@ -85,8 +82,8 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
   const { isLoaded } = useGoogleMapsLoader();
   const { data: rides, error, isLoading } = useGetRideQuery(selectedRideId);
 
-  const distance = haversineDistance(vehicle, end).toFixed(2); // Distance in km
-  const eta = Math.ceil(distance / 0.5); // Assuming average speed of 30km/h (0.5km/min)
+  // const distance = haversineDistance(vehicle, end).toFixed(2); // Distance in km
+  // const eta = Math.ceil(distance / 0.5); // Assuming average speed of 30km/h (0.5km/min)
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -274,7 +271,7 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
                   />
                 </div>
               </OverlayView>
-              <OverlayView
+              {/* <OverlayView
                 position={end}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
@@ -282,7 +279,7 @@ const RideModal = ({ open, handleClose, selectedRideId }) => {
                   <p className="text-white text-xs font-bold">{distance} km</p>
                   <p className="text-white text-xs font-bold">{eta} min</p>
                 </div>
-              </OverlayView>
+              </OverlayView> */}
             </GoogleMap>
           </div>
         </Box>
