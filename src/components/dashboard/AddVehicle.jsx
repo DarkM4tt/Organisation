@@ -73,6 +73,7 @@ const AddVehicle = ({
     formData.brand_name &&
     formData.category_id &&
     formData.model &&
+    formData.seats &&
     formData.color;
 
   return (
@@ -229,7 +230,7 @@ const AddVehicle = ({
             name="brand_name"
             value={formData.brand_name}
             onChange={handleChange}
-            placeholder="For example: 2MRA356"
+            placeholder="For example: Ferrari"
             fullWidth
             variant="outlined"
           />
@@ -272,6 +273,21 @@ const AddVehicle = ({
         </Box>
         <Box sx={{ flex: 1 }}>
           <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
+            Seats
+          </Typography>
+          <TextField
+            name="seats"
+            value={formData.seats}
+            onChange={handleChange}
+            placeholder="For example: 4"
+            type="number"
+            inputProps={{ min: 0, step: "1", max: 10 }}
+            fullWidth
+            variant="outlined"
+          />
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
             Color
           </Typography>
           <TextField
@@ -285,14 +301,47 @@ const AddVehicle = ({
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", mb: 4, justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          mb: 4,
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
+      >
         {renderCheckboxGroup("Pet friendly vehicle", "pet_friendly")}
         {renderCheckboxGroup("Jumpstart", "jump_start")}
         {renderCheckboxGroup("Assist", "assist")}
+        {renderCheckboxGroup("Intercity", "intercity")}
       </Box>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "20px",
+          mb: 3,
+        }}
+      >
         {renderCheckboxGroup("Rental", "rental")}
+        {formData.rental && (
+          <Box
+            sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
+          >
+            <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
+              Security deposit
+            </Typography>
+            <TextField
+              name="security_deposit"
+              value={formData.security_deposit}
+              onChange={handleChange}
+              placeholder="In euro"
+              sx={{ flex: 1 }}
+              variant="outlined"
+              type="number"
+              inputProps={{ min: 0, step: "0.01" }}
+            />
+          </Box>
+        )}
         {formData.rental && (
           <Box
             sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
@@ -363,14 +412,17 @@ AddVehicle.propTypes = {
     registration_number: PropTypes.string.isRequired,
     fleet_id: PropTypes.string,
     vin: PropTypes.string.isRequired,
+    seats: PropTypes.number.isRequired,
     brand_name: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     category_id: PropTypes.string.isRequired,
     pet_friendly: PropTypes.bool.isRequired,
     jump_start: PropTypes.bool.isRequired,
+    intercity: PropTypes.bool.isRequired,
     rental: PropTypes.bool.isRequired,
     hourly_charges: PropTypes.number.isRequired,
+    security_deposit: PropTypes.number.isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleAddVehicle: PropTypes.func.isRequired,

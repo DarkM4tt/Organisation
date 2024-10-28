@@ -50,11 +50,14 @@ const Vehicles = ({ onVehicleClick }) => {
     model: "",
     color: "",
     pet_friendly: false,
+    intercity: false,
     jump_start: false,
     assist: false,
     rental: false,
     hourly_charges: "",
+    security_deposit: "",
     fleet_id: "",
+    seats: "",
     insurancePolicy: null,
     technicalInspection: null,
     specialConditionsPolicy: null,
@@ -245,7 +248,7 @@ const Vehicles = ({ onVehicleClick }) => {
     const { name, value } = e.target;
     console.log(name);
 
-    if (name === "hourly_charges") {
+    if (name === "hourly_charges" || name === "security_deposit") {
       setAddVehicleFormData((prevFormData) => ({
         ...prevFormData,
         [name]: parseFloat(value),
@@ -272,12 +275,16 @@ const Vehicles = ({ onVehicleClick }) => {
     formData.append("category_id", addVehicleFormData.category_id);
     formData.append("model", addVehicleFormData.model);
     formData.append("color", addVehicleFormData.color);
+    formData.append("seats", addVehicleFormData.seats);
     formData.append("pet_friendly", addVehicleFormData.pet_friendly);
     formData.append("jump_start", addVehicleFormData.jump_start);
     formData.append("assist", addVehicleFormData.assist);
+    formData.append("intercity", addVehicleFormData.intercity);
     formData.append("rental", addVehicleFormData.rental);
     addVehicleFormData.rental &&
       formData.append("rent_hourly_charges", addVehicleFormData.hourly_charges);
+    addVehicleFormData.rental &&
+      formData.append("security_deposit", addVehicleFormData.security_deposit);
     addVehicleFormData.fleet_id &&
       formData.append("vehicle_id", addVehicleFormData.fleet_id);
 

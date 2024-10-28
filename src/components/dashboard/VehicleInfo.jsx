@@ -106,11 +106,13 @@ const VehicleInfo = ({
       const response = await res.json();
       setVehicleDetails(response.vehicle);
       setFormData({
-        rent_hourly_charges: response.vehicle?.rent_hourly_charges || 0,
-        pet_friendly: response.vehicle?.pet_friendly || false,
-        rentable: response.vehicle?.rental || false,
-        jump_start: response.vehicle?.jump_start || false,
-        assist: response.vehicle?.assist || false,
+        rent_hourly_charges: response?.vehicle?.rent_hourly_charges || 0,
+        security_deposit: response?.vehicle?.security_deposit || 0,
+        pet_friendly: response?.vehicle?.pet_friendly || false,
+        rentable: response?.vehicle?.rental || false,
+        jump_start: response?.vehicle?.jump_start || false,
+        assist: response?.vehicle?.assist || false,
+        intercity: response?.vehicle?.intercity || false,
       });
       setDriverDetails(response.assigned_driver);
     } catch (err) {
@@ -125,6 +127,14 @@ const VehicleInfo = ({
     setFormData({
       ...formData,
       rent_hourly_charges: parseFloat(e.target.value),
+    });
+  };
+
+  const handleSecurityDeposit = (e) => {
+    setsavebuttondisable(false);
+    setFormData({
+      ...formData,
+      security_deposit: parseFloat(e.target.value),
     });
   };
 
@@ -301,8 +311,12 @@ const VehicleInfo = ({
   const handleSubmit = async () => {
     setAssignError("");
     !formData.rentable && delete formData.rent_hourly_charges;
-    if (formData.rentable && !formData.rent_hourly_charges) {
-      setAssignError("Add hourly charges!");
+    !formData.rentable && delete formData.security_deposit;
+    if (
+      formData.rentable &&
+      (!formData.rent_hourly_charges || !formData.security_deposit)
+    ) {
+      setAssignError("Add hourly charges and security deposit!");
       return;
     }
     try {
@@ -414,10 +428,32 @@ const VehicleInfo = ({
         {renderCheckboxGroup("Pet friendly vehicle", "pet_friendly")}
         {renderCheckboxGroup("Assist", "assist")}
         {renderCheckboxGroup("Jumpstart", "jump_start")}
+        {renderCheckboxGroup("Intercity", "intercity")}
       </Box>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+      <Box sx={{ display: "flex", gap: "30px", mb: 3 }}>
         {renderCheckboxGroup("Rental", "rentable")}
+        {formData.rentable && (
+          <Box
+            sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
+          >
+            <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
+              Security deposit
+            </Typography>
+            <TextField
+              name="security_deposit"
+              value={formData?.security_deposit}
+              onChange={(e) => {
+                handleSecurityDeposit(e);
+              }}
+              placeholder="In euro"
+              sx={{ flex: 1 }}
+              variant="outlined"
+              type="number"
+              inputProps={{ min: 0, step: "0.01" }}
+            />
+          </Box>
+        )}
         {formData.rentable && (
           <Box
             sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
@@ -435,7 +471,7 @@ const VehicleInfo = ({
               sx={{ flex: 1 }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 0, step: "0.01" }}
             />
           </Box>
         )}
