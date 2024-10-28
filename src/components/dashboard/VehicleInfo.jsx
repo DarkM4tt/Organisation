@@ -296,6 +296,19 @@ const VehicleInfo = ({
     setModalTitle("");
   };
 
+  const getStatus = (status) => {
+    console.log(status);
+    if (!status) {
+      return <p className="font-normal text-sm text-red-500">Lacking</p>;
+    } else if (status === "PENDING") {
+      return <p className="font-normal text-sm text-yellow-500">Pending</p>;
+    } else if (status === "REJECTED") {
+      return <p className="font-normal text-sm text-red-500">Rejected</p>;
+    } else {
+      return <p className="font-normal text-sm text-green-500">Approved</p>;
+    }
+  };
+
   if (loading) {
     return (
       <div className="mx-auto w-full h-full ">
@@ -494,6 +507,9 @@ const VehicleInfo = ({
               value: "car_insurance_policy_green_card",
               url: vehicleDetails?.documents?.car_insurance_policy_green_card
                 ?.url,
+              status:
+                vehicleDetails?.documents?.car_insurance_policy_green_card
+                  ?.status,
             },
             {
               label:
@@ -503,6 +519,9 @@ const VehicleInfo = ({
               value: "car_insurance_special_conditions",
               url: vehicleDetails?.documents?.car_insurance_special_conditions
                 ?.url,
+              status:
+                vehicleDetails?.documents?.car_insurance_special_conditions
+                  ?.status,
             },
             {
               label:
@@ -511,6 +530,8 @@ const VehicleInfo = ({
               type: "duaSingleCarDocument",
               value: "dua_single_car_document",
               url: vehicleDetails?.documents?.dua_single_car_document?.url,
+              status:
+                vehicleDetails?.documents?.dua_single_car_document?.status,
             },
             {
               label:
@@ -520,6 +541,9 @@ const VehicleInfo = ({
               value: "periodic_technical_inspection",
               url: vehicleDetails?.documents?.periodic_technical_inspection
                 ?.url,
+              status:
+                vehicleDetails?.documents?.periodic_technical_inspection
+                  ?.status,
             },
           ].map((item, index) => (
             <Card
@@ -533,7 +557,7 @@ const VehicleInfo = ({
                 borderBottom: "1px solid rgba(221, 221, 221, 1)",
               }}
             >
-              <div className="md:max-w-[80%]">
+              <div className="md:max-w-[70%]">
                 <Typography variant="body1" fontWeight="700">
                   {item.label}
                 </Typography>
@@ -545,34 +569,37 @@ const VehicleInfo = ({
                   {item.date}
                 </Typography>
               </div>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "rgba(238, 238, 238, 1)",
-                  color: "#000",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: "rgba(238, 238, 238, 1)",
-                  },
-                }}
-                onClick={() => {
-                  vehicleDetails?.documents &&
-                  vehicleDetails?.documents[item.value]
-                    ? handleViewDocument(item.url, item.label)
-                    : handleUpload(item.type);
-                }}
-              >
-                {uploadingDocument === item.type ? (
-                  <LoadingAnimation width={30} height={30} />
-                ) : vehicleDetails?.documents &&
-                  vehicleDetails?.documents[item.value] ? (
-                  "View"
-                ) : (
-                  "Upload"
-                )}
-              </Button>
+              <div className="flex gap-10 items-center">
+                <p>{getStatus(item?.status)}</p>
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: "rgba(238, 238, 238, 1)",
+                    color: "#000",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(238, 238, 238, 1)",
+                    },
+                  }}
+                  onClick={() => {
+                    vehicleDetails?.documents &&
+                    vehicleDetails?.documents[item.value]
+                      ? handleViewDocument(item.url, item.label)
+                      : handleUpload(item.type);
+                  }}
+                >
+                  {uploadingDocument === item.type ? (
+                    <LoadingAnimation width={30} height={30} />
+                  ) : vehicleDetails?.documents &&
+                    vehicleDetails?.documents[item.value] ? (
+                    "View"
+                  ) : (
+                    "Upload"
+                  )}
+                </Button>
+              </div>
               {uploadError && (
                 <p className="mt-2 font-redhat text-red-400">{uploadError}</p>
               )}

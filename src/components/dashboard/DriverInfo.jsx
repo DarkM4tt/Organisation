@@ -78,6 +78,19 @@ const DriverInfo = ({
     setModalTitle("");
   };
 
+  const getStatus = (status) => {
+    console.log(status);
+    if (!status) {
+      return <p className="font-normal text-sm text-red-500">Lacking</p>;
+    } else if (status === "PENDING") {
+      return <p className="font-normal text-sm text-yellow-500">Pending</p>;
+    } else if (status === "REJECTED") {
+      return <p className="font-normal text-sm text-red-500">Rejected</p>;
+    } else {
+      return <p className="font-normal text-sm text-green-500">Approved</p>;
+    }
+  };
+
   if (loading) {
     return (
       <div className="mx-auto w-full h-full ">
@@ -164,21 +177,25 @@ const DriverInfo = ({
               label: " TVDE Driver Certificate ",
               date: "Valid until December 25, 2024",
               url: driverDetails?.documents?.tevd_certificate?.url,
+              status: driverDetails?.documents?.tevd_certificate?.status,
             },
             {
               label: "Driver’s License",
               date: "Valid until December 25, 2024",
               url: driverDetails?.documents?.license?.url,
+              status: driverDetails?.documents?.license?.status,
             },
             {
               label: "Proof of Identity",
               date: "Valid until December 25, 2024",
               url: driverDetails?.documents?.proof_of_identity?.url,
+              status: driverDetails?.documents?.proof_of_identity?.status,
             },
             {
               label: "Criminal Record",
               date: "Valid until December 25, 2024",
               url: driverDetails?.documents?.criminal_records?.url,
+              status: driverDetails?.documents?.criminal_records?.status,
             },
           ].map((item, index) => (
             <Card
@@ -204,22 +221,25 @@ const DriverInfo = ({
                   <span>Valid until {item.date}</span>
                 </Box>
               </div>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "rgba(238, 238, 238, 1)",
-                  color: "#000",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: "rgba(238, 238, 238, 1)",
-                  },
-                }}
-                onClick={() => handleViewDocument(item.url, item.label)}
-              >
-                View
-              </Button>
+              <div className="flex gap-10 items-center">
+                <p>{getStatus(item?.status)}</p>
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: "rgba(238, 238, 238, 1)",
+                    color: "#000",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(238, 238, 238, 1)",
+                    },
+                  }}
+                  onClick={() => handleViewDocument(item.url, item.label)}
+                >
+                  View
+                </Button>
+              </div>
             </Card>
           ))}
         </div>

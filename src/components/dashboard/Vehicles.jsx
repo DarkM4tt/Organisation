@@ -133,17 +133,11 @@ const Vehicles = ({ onVehicleClick }) => {
     if (!showAll) {
       if (state) {
         filtered = filtered.filter((vehicle) => {
-          const docs = vehicle?.documents || {};
-          const docCount = Object.keys(docs).length;
-          const approvedCount = Object.values(docs).filter(
-            (doc) => doc.status === "APPROVED"
-          ).length;
-
           if (state === "Active") {
-            return docCount === 4 && approvedCount === 4;
+            return vehicle?.isActive;
           }
           if (state === "Inactive") {
-            return !(docCount === 4 && approvedCount === 4);
+            return !vehicle?.isActive;
           }
           return true;
         });
@@ -415,10 +409,7 @@ const Vehicles = ({ onVehicleClick }) => {
     ).length;
     const notUploadedCount = totalDocs - Object.keys(documents).length;
 
-    const allApproved = approvedCount === totalDocs;
-
     return {
-      status: allApproved,
       notUploadedCount,
       pendingCount,
       approvedCount,
@@ -634,7 +625,7 @@ const Vehicles = ({ onVehicleClick }) => {
               <TableBody>
                 {filteredVehicles?.map((vehicle, index) => {
                   const documents = vehicle?.documents || {};
-                  const { status, notUploadedCount, pendingCount } =
+                  const { notUploadedCount, pendingCount } =
                     getVerificationStatus(documents);
 
                   return (
@@ -648,7 +639,7 @@ const Vehicles = ({ onVehicleClick }) => {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {status ? (
+                        {vehicle?.isActive ? (
                           <span className="flex gap-2">
                             <img src={greenDot} alt="greenDot" />
                             <p className="font-redhat text-base font-semibold">
