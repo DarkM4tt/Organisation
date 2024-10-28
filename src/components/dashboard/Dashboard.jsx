@@ -60,6 +60,7 @@ const Dashboard = ({ onMenuItemClick }) => {
       },
     },
   };
+
   return (
     <div className="p-6">
       <div className="flex justify-between mb-6">
@@ -113,8 +114,11 @@ const Dashboard = ({ onMenuItemClick }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="border border-borderGray rounded-lg flex flex-col justify-between  p-4">
-          <div className="flex gap-2 ">
+        <div
+          onClick={() => onMenuItemClick("Balance")}
+          className="border border-borderGray rounded-lg flex flex-col justify-between cursor-pointer p-4"
+        >
+          <div className="flex gap-2">
             <img src={Euroicon} alt="info" className="h-8 mt-2" />
             <div>
               <h1 className="text-4xl font-bold">3322</h1>
@@ -133,7 +137,10 @@ const Dashboard = ({ onMenuItemClick }) => {
             </div>
           </div>
         </div>
-        <div className="border border-borderGray rounded-lg flex flex-col justify-between  p-4">
+        <div
+          onClick={() => onMenuItemClick("Rides")}
+          className="border border-borderGray rounded-lg flex flex-col justify-between cursor-pointer p-4"
+        >
           <div className="flex gap-4 ">
             <img src={dashboardvehicle} alt="info" className="h-12 mt-1" />
             <div>
@@ -160,7 +167,10 @@ const Dashboard = ({ onMenuItemClick }) => {
             </div>
           </div>
         </div>
-        <div className="border border-borderGray rounded-lg flex justify-between  p-4">
+        <div
+          onClick={() => onMenuItemClick("Reports")}
+          className="border border-borderGray rounded-lg flex justify-between cursor-pointer p-4"
+        >
           <div className="leftonelast w-1/2 flex flex-col justify-between">
             <div className="flex flex-col gap-2">
               <p className="font-redhat text-sm font-semibold">
@@ -192,7 +202,10 @@ const Dashboard = ({ onMenuItemClick }) => {
             </div>
           </div>
         </div>
-        <div className="border border-borderGray rounded-lg flex justify-between  p-4">
+        <div
+          onClick={() => onMenuItemClick("Reports")}
+          className="border border-borderGray rounded-lg flex justify-between cursor-pointer p-4"
+        >
           <div className="leftonelast w-1/2 flex flex-col justify-between">
             <div className="flex flex-col gap-2">
               <p className="font-redhat text-sm font-semibold">Performance</p>

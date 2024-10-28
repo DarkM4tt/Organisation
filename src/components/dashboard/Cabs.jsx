@@ -306,9 +306,13 @@ const Cabs = () => {
                     </TableCell>
                     <TableCell>{getStatus(ride?.status)}</TableCell>
                     <TableCell>
-                      <p className="font-normal text-sm">
-                        {ride?.vehicle_vin || "NULL"}
-                      </p>
+                      {ride?.vehicle_vin ? (
+                        <p className="font-normal text-sm">
+                          {ride?.vehicle_vin}
+                        </p>
+                      ) : (
+                        <p className="font-normal text-red-400 text-sm">Null</p>
+                      )}
                     </TableCell>
                     <TableCell>
                       <p className="font-normal text-sm">

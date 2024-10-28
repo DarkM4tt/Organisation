@@ -170,13 +170,21 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Vehicle VIN
               </p>
-              <p>{(rides && rides?.vehicle_vin) || "Null"}</p>
+              {rides?.vehicle_vin ? (
+                <p className="font-normal text-sm">{rides?.vehicle_vin}</p>
+              ) : (
+                <p className="font-normal text-red-400 text-sm">Null</p>
+              )}
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Zone
               </p>
-              <p>#{(rides && rides?.zone) || "Null"}</p>
+              {rides?.zone ? (
+                <p className="font-normal text-sm"># {rides?.zone}</p>
+              ) : (
+                <p className="font-normal text-red-400 text-sm">None Zone</p>
+              )}
             </div>
           </div>
           <div className="flex justify-between mb-8 mt-8 relative">
@@ -234,7 +242,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={start}
-              zoom={10}
+              zoom={12}
             >
               <Marker position={start} icon={greenoneicon} />
               <Marker position={end} icon={redoneicon} clickable={true} />
