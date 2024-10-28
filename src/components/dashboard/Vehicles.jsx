@@ -101,10 +101,9 @@ const Vehicles = ({ onVehicleClick }) => {
   }, []);
 
   const fetchVehicleCategories = useCallback(async () => {
-    const orgId = localStorage.getItem("org_id");
     const url = `${
       import.meta.env.VITE_DEV_URL
-    }/organization/${orgId}/vehicleCategories`;
+    }/organization/vehicleCategories`;
     setLoading(true);
     setCategoryError(false);
     try {
