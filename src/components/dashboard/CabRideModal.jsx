@@ -5,14 +5,14 @@ import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import vehicleicon from "../../assets/vehiclemapicon.svg";
+// import vehicleicon from "../../assets/vehiclemapicon.svg";
 import redoneicon from "../../assets/redoneicon.svg";
 import greenoneicon from "../../assets/greenoneicon.svg";
 import {
   GoogleMap,
   Marker,
   Polyline,
-  OverlayView,
+  // OverlayView,
 } from "@react-google-maps/api";
 import useGoogleMapsLoader from "../../useGoogleMapsLoader";
 import { useGetRideQuery } from "../../features/Rides/ridesSlice";
@@ -26,17 +26,7 @@ const mapContainerStyle = {
   width: "100%",
 };
 
-const vehicle = { lat: 38.7385, lng: -9.148 };
-
-const start = { lat: 38.736946, lng: -9.139994 };
-const end = { lat: 38.742476, lng: -9.158691 };
-
-const center = {
-  lat: (start.lat + end.lat) / 2,
-  lng: (start.lng + end.lng) / 2,
-};
-
-const route = [start, { lat: 38.7385, lng: -9.148 }, end];
+// const vehicle = { lat: 38.7385, lng: -9.148 };
 
 const rideData = {
   rideId: 1954,
@@ -91,6 +81,23 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
       return <p className="font-normal text-sm text-[]">Waiting</p>;
     }
   };
+
+  const start = {
+    lat: rides?.pickup_location.latitude,
+    lng: rides?.pickup_location.longitude,
+  };
+
+  const end = {
+    lat: rides?.dropoff_location.latitude,
+    lng: rides?.dropoff_location.longitude,
+  };
+
+  const center = {
+    lat: (start.lat + end.lat) / 2,
+    lng: (start.lng + end.lng) / 2,
+  };
+
+  const route = [start, center, end];
 
   if (error) {
     return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
@@ -241,7 +248,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                   strokeWeight: 8,
                 }}
               />
-              <OverlayView
+              {/* <OverlayView
                 position={vehicle}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
@@ -252,7 +259,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                     className="w-[70px] -mt-11"
                   />
                 </div>
-              </OverlayView>
+              </OverlayView> */}
             </GoogleMap>
           </div>
         </Box>
