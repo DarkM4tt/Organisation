@@ -233,8 +233,8 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
           <div className="h-[50vh] bg-gray-200 mt-8 relative">
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={13}
+              center={start}
+              zoom={10}
             >
               <Marker position={start} icon={greenoneicon} />
               <Marker position={end} icon={redoneicon} clickable={true} />
