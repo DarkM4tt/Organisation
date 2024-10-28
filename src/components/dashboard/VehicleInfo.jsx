@@ -377,8 +377,7 @@ const VehicleInfo = ({
       <div className="mb-10 flex justify-between">
         <div className="flex flex-col flex-1 gap-6">
           <Typography sx={{ fontWeight: "bold", fontSize: "40px" }}>
-            {vehicleDetails?.year} {vehicleDetails?.make}{" "}
-            {vehicleDetails?.vehicle_model}
+            {vehicleDetails?.brand} {vehicleDetails?.vehicle_model}
           </Typography>
           <div className="flex flex-1 justify-between w-[70%]">
             <div className="flex flex-col">
@@ -427,6 +426,9 @@ const VehicleInfo = ({
       <Box sx={{ display: "flex", gap: 2, mb: 4, mt: 2 }}>
         {renderCheckboxGroup("Pet friendly vehicle", "pet_friendly")}
         {renderCheckboxGroup("Assist", "assist")}
+      </Box>
+
+      <Box sx={{ display: "flex", gap: 2, mb: 4, mt: 2 }}>
         {renderCheckboxGroup("Jumpstart", "jump_start")}
         {renderCheckboxGroup("Intercity", "intercity")}
       </Box>
@@ -450,7 +452,7 @@ const VehicleInfo = ({
               sx={{ flex: 1 }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0, step: "0.01" }}
+              inputProps={{ min: 1, step: "0.01" }}
             />
           </Box>
         )}
@@ -471,7 +473,7 @@ const VehicleInfo = ({
               sx={{ flex: 1 }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0, step: "0.01" }}
+              inputProps={{ min: 1, step: "0.01" }}
             />
           </Box>
         )}

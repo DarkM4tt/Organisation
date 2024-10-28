@@ -26,7 +26,7 @@ const AddVehicle = ({
   loadingFiles,
 }) => {
   const renderCheckboxGroup = (label, fieldName) => (
-    <Box sx={{ flex: 1, display: "flex", gap: 2, alignItems: "center" }}>
+    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
       <Typography variant="body1" fontWeight="700">
         {label}
       </Typography>
@@ -281,7 +281,7 @@ const AddVehicle = ({
             onChange={handleChange}
             placeholder="For example: 4"
             type="number"
-            inputProps={{ min: 0, step: "1", max: 10 }}
+            inputProps={{ min: 1, step: "1", max: 10 }}
             fullWidth
             variant="outlined"
           />
@@ -304,13 +304,23 @@ const AddVehicle = ({
       <Box
         sx={{
           display: "flex",
-          mb: 4,
           justifyContent: "space-between",
+          mb: 4,
           flexWrap: "wrap",
         }}
       >
         {renderCheckboxGroup("Pet friendly vehicle", "pet_friendly")}
         {renderCheckboxGroup("Jumpstart", "jump_start")}
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          mb: 4,
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
+      >
         {renderCheckboxGroup("Assist", "assist")}
         {renderCheckboxGroup("Intercity", "intercity")}
       </Box>
@@ -318,16 +328,22 @@ const AddVehicle = ({
       <Box
         sx={{
           display: "flex",
-          gap: "20px",
+          alignItems: "center",
           mb: 3,
         }}
       >
         {renderCheckboxGroup("Rental", "rental")}
         {formData.rental && (
           <Box
-            sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
+            sx={{
+              flex: 1,
+              display: "flex",
+              gap: "8px",
+              alignItems: "center",
+              marginLeft: 4,
+            }}
           >
-            <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
+            <Typography variant="body1" fontWeight="700">
               Security deposit
             </Typography>
             <TextField
@@ -335,10 +351,10 @@ const AddVehicle = ({
               value={formData.security_deposit}
               onChange={handleChange}
               placeholder="In euro"
-              sx={{ flex: 1 }}
+              sx={{ flex: 1, maxWidth: "50%" }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0, step: "0.01" }}
+              inputProps={{ min: 1, step: "0.01" }}
             />
           </Box>
         )}
@@ -346,7 +362,7 @@ const AddVehicle = ({
           <Box
             sx={{ flex: 1, display: "flex", gap: "8px", alignItems: "center" }}
           >
-            <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
+            <Typography variant="body1" fontWeight="700">
               Hourly charges
             </Typography>
             <TextField
@@ -354,10 +370,10 @@ const AddVehicle = ({
               value={formData.hourly_charges}
               onChange={handleChange}
               placeholder="In euro"
-              sx={{ flex: 1 }}
+              sx={{ flex: 1, maxWidth: "50%" }}
               variant="outlined"
               type="number"
-              inputProps={{ min: 0, step: "0.01" }}
+              inputProps={{ min: 1, step: "0.01" }}
             />
           </Box>
         )}

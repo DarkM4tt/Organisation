@@ -608,7 +608,7 @@ const Vehicles = ({ onVehicleClick }) => {
                       fontWeight: "700",
                     }}
                   >
-                    VIN and license plate
+                    VIN
                   </TableCell>
                   <TableCell
                     sx={{
@@ -643,8 +643,7 @@ const Vehicles = ({ onVehicleClick }) => {
                         <div className="flex items-center cursor-pointer">
                           <img src={carImage} alt="vehicle" className="mr-2" />
                           <p className="font-redHat font-bold text-base">
-                            {vehicle?.year} {vehicle?.make}{" "}
-                            {vehicle?.vehicle_model}
+                            {vehicle?.brand} {vehicle?.vehicle_model}
                           </p>
                         </div>
                       </TableCell>
