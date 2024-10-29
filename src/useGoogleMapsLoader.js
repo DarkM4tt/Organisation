@@ -1,7 +1,7 @@
 import { useJsApiLoader } from "@react-google-maps/api";
 
 const googleMapsApiOptions = {
-  googleMapsApiKey: "AIzaSyBTjWye2ChHTGsKhaVl9pkNFszW_MDGQnM",
+  googleMapsApiKey: "AIzaSyADUMklpWkHyXBGAWiMIXS5-dseLt5Q314",
   libraries: ["drawing", "places"],
 };
 
