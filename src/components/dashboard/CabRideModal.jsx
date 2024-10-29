@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -55,8 +55,44 @@ const rideData = {
 const CabRideModal = ({ open, handleClose, selectedRideId }) => {
   const { isLoaded } = useGoogleMapsLoader();
   const { data: rides, error, isLoading } = useGetRideQuery(selectedRideId);
-
+  const [directionsResponse, setDirectionsResponse] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const start = useMemo(
+    () => ({
+      lat: rides?.pickup_location.latitude,
+      lng: rides?.pickup_location.longitude,
+    }),
+    [rides?.pickup_location.latitude, rides?.pickup_location.longitude]
+  );
+
+  const end = useMemo(
+    () => ({
+      lat: rides?.dropoff_location.latitude,
+      lng: rides?.dropoff_location.longitude,
+    }),
+    [rides?.dropoff_location.latitude, rides?.dropoff_location.longitude]
+  );
+
+  useEffect(() => {
+    if (start && end) {
+      const directionsService = new google.maps.DirectionsService();
+      directionsService.route(
+        {
+          origin: start,
+          destination: end,
+          travelMode: google.maps.TravelMode.DRIVING, // You can use DRIVING or BICYCLING
+        },
+        (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK) {
+            setDirectionsResponse(result);
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
+        }
+      );
+    }
+  }, [start, end]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,16 +116,6 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
     } else {
       return <p className="font-normal text-sm text-[]">Waiting</p>;
     }
-  };
-
-  const start = {
-    lat: rides?.pickup_location.latitude,
-    lng: rides?.pickup_location.longitude,
-  };
-
-  const end = {
-    lat: rides?.dropoff_location.latitude,
-    lng: rides?.dropoff_location.longitude,
   };
 
   const center = {
@@ -247,15 +273,16 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <Marker position={start} icon={greenoneicon} />
               <Marker position={end} icon={redoneicon} clickable={true} />
 
-              <Polyline
-                path={route}
-                geodesic={true}
-                options={{
-                  strokeColor: "black",
-                  strokeOpacity: 1,
-                  strokeWeight: 8,
-                }}
-              />
+              {directionsResponse && (
+                <Polyline
+                  path={directionsResponse.routes[0].overview_path}
+                  options={{
+                    strokeColor: "black",
+                    strokeOpacity: 1,
+                    strokeWeight: 8,
+                  }}
+                />
+              )}
               {/* <OverlayView
                 position={vehicle}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
