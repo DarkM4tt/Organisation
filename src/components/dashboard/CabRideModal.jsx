@@ -175,7 +175,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               onClick={handleClose}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-3 gap-4 mb-4">
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Ride ID
@@ -183,7 +183,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p>#{rideDetails?.ride_id?.slice(-5) || "Error"}</p>
             </div>
             <div className="flex gap-8">
-              <p className="font-bold text-base font-redhat max-w-[30%] w-full">
+              <p className="font-bold text-base font-redhat max-w-[30%] w-full whitespace-nowrap">
                 Driver Name
               </p>
               <p>{rideDetails?.driver_full_name || "Not accepted yet!"}</p>
@@ -224,8 +224,6 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 <p className="font-normal text-red-400 text-sm">None Zone</p>
               )}
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Charge
@@ -300,7 +298,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
           </div>
 
           {/* MAP */}
-          <div className="h-[50vh] bg-gray-200 mt-8 relative">
+          <div className="h-[35vh] bg-gray-200 mt-8 relative">
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={start}
