@@ -104,15 +104,15 @@ const Cabs = () => {
 
   const getStatus = (status) => {
     if (status === "ACCEPTED") {
-      return <p className="font-normal text-sm text-green-500">Accepted</p>;
+      return <p className="font-normal text-sm text-lime-500">Accepted</p>;
     } else if (status === "FINISHED") {
       return <p className="font-normal text-sm text-green-500">Finished</p>;
     } else if (status === "CANCELED") {
-      return <p className="font-normal text-sm text-[]">Canceled</p>;
-    } else if (status === "REQUESTING") {
-      return <p className="font-normal text-sm text-[]">Requesting</p>;
+      return <p className="font-normal text-sm text-red-500">Canceled</p>;
+    } else if (status === "CREATED") {
+      return <p className="font-normal text-sm text-yellow-500">Requesting</p>;
     } else if (status === "ONROUTE") {
-      return <p className="font-normal text-sm text-green-500">Onroute</p>;
+      return <p className="font-normal text-sm text-blue-500">Onroute</p>;
     } else {
       return <p className="font-normal text-sm text-[]">Waiting</p>;
     }
@@ -209,152 +209,132 @@ const Cabs = () => {
       )}
       {filteredRides && filteredRides.length > 0 && (
         <>
-          <TableContainer>
-            <Table
-              sx={{
-                border: "1px solid rgba(221, 221, 221, 1)",
-              }}
-            >
-              <TableHead
-                sx={{
-                  backgroundColor: "rgba(238, 238, 238, 1)",
-                  borderRadius: "10px",
-                }}
-              >
+          <TableContainer
+            sx={{
+              maxHeight: "60vh",
+              border: "1px solid rgba(221, 221, 221, 1)",
+              overflow: "auto",
+            }}
+          >
+            <Table stickyHeader>
+              <TableHead>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Ride ID
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Status
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Vehicle VIN
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Driver Name
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    From
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    To location
-                  </TableCell>
+                  {[
+                    { label: "Ride ID", width: "12%" },
+                    { label: "Status", width: "12%" },
+                    { label: "Vehicle VIN", width: "15%" },
+                    { label: "Driver Name", width: "15%" },
+                    { label: "From", width: "18%" },
+                    { label: "To location", width: "18%" },
+                    { label: "Stops", width: "5%" },
+                    { label: "Distance", width: "5%" },
+                  ].map((header, index) => (
+                    <TableCell
+                      key={index}
+                      align="left"
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        backgroundColor: "rgba(238, 238, 238, 1)",
+                        width: header.width,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {header.label}
+                    </TableCell>
+                  ))}
                   <TableCell
                     align="center"
                     sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
+                      width: "5%",
+                      backgroundColor: "rgba(238, 238, 238, 1)",
                     }}
                   >
-                    Stops
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Distance
-                  </TableCell>
-                  <TableCell align="right">
-                    <img src={settingsIcon} alt="settingsIcon" />
+                    <IconButton>
+                      <img src={settingsIcon} alt="settingsIcon" />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {filteredRides.map((ride, index) => (
                   <TableRow
-                    onClick={() => handleRideClick(ride?.ride_id)}
                     key={index}
-                    sx={{ cursor: "pointer" }}
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": { backgroundColor: "rgba(245, 245, 245, 1)" },
+                    }}
+                    onClick={() => handleRideClick(ride?.ride_id)}
                   >
-                    <TableCell>
-                      <p className="font-normal text-base">
-                        #{ride?.ride_id?.slice(-5)}
-                      </p>
+                    <TableCell
+                      sx={{
+                        width: "12%",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      #{ride?.ride_id?.slice(-5)}
                     </TableCell>
-                    <TableCell>{getStatus(ride?.status)}</TableCell>
-                    <TableCell>
+
+                    <TableCell sx={{ width: "12%" }}>
+                      {getStatus(ride?.status)}
+                    </TableCell>
+
+                    <TableCell sx={{ width: "15%" }}>
                       {ride?.vehicle_vin ? (
-                        <p className="font-normal text-sm">
-                          {ride?.vehicle_vin}
-                        </p>
+                        ride.vehicle_vin
                       ) : (
-                        <p className="font-normal text-red-400 text-sm">Null</p>
+                        <span style={{ color: "red" }}>Null</span>
                       )}
                     </TableCell>
-                    <TableCell>
-                      <p className="font-normal text-sm">
-                        {ride?.driver_full_name}
-                      </p>
+
+                    <TableCell sx={{ width: "15%" }}>
+                      {ride?.driver_full_name}
                     </TableCell>
-                    <TableCell>
-                      <div className="relative group">
-                        <p className="font-normal text-sm">
-                          {truncateAddress(
-                            ride?.pickup_address || "Fetching address..."
-                          )}
-                        </p>
-                        <div className="absolute bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                          {ride?.pickup_address || "Fetching address..."}
+
+                    <TableCell sx={{ width: "18%" }}>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr auto",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="relative group">
+                          <span>{truncateAddress(ride?.pickup_address)}</span>
+                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                            {ride?.pickup_address || "Fetching address..."}
+                          </div>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <div className="relative group">
-                        <p className="font-normal text-sm">
-                          {truncateAddress(
-                            ride?.dropoff_address || "Fetching address..."
-                          )}
-                        </p>
-                        <div className="absolute bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                          {ride?.dropoff_address || "Fetching address..."}
+
+                    <TableCell sx={{ width: "18%" }}>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr auto",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="relative group">
+                          <span>{truncateAddress(ride?.dropoff_address)}</span>
+                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                            {ride?.dropoff_address || "Fetching address..."}
+                          </div>
                         </div>
                       </div>
-                      {ride?.toLocation}
                     </TableCell>
-                    <TableCell align="center">
-                      <p className="font-normal text-base">
-                        {ride?.stops?.length}
-                      </p>
+
+                    <TableCell sx={{ width: "5%", textAlign: "center" }}>
+                      {ride?.stops?.length}
                     </TableCell>
-                    <TableCell>
-                      <p className="font-normal text-base">
-                        {ride?.distance_in_kilometers + " km"}
-                      </p>
+
+                    <TableCell sx={{ width: "5%", textAlign: "center" }}>
+                      {ride?.distance_in_kilometers} km
                     </TableCell>
-                    <TableCell>
+
+                    <TableCell sx={{ width: "5%", textAlign: "center" }}>
                       <IconButton>
                         <Visibility />
                       </IconButton>
@@ -364,6 +344,7 @@ const Cabs = () => {
               </TableBody>
             </Table>
           </TableContainer>
+
           <div className="flex justify-between items-center">
             <Select
               value="10"

@@ -54,36 +54,49 @@ const rideData = {
 
 const CabRideModal = ({ open, handleClose, selectedRideId }) => {
   const { isLoaded } = useGoogleMapsLoader();
-  const { data: rides, error, isLoading } = useGetRideQuery(selectedRideId);
+  const {
+    data: rideDetails,
+    error,
+    isLoading,
+  } = useGetRideQuery(selectedRideId);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const start = useMemo(
     () => ({
-      lat: rides?.pickup_location.latitude,
-      lng: rides?.pickup_location.longitude,
+      lat: rideDetails?.pickup_location.latitude,
+      lng: rideDetails?.pickup_location.longitude,
     }),
-    [rides?.pickup_location.latitude, rides?.pickup_location.longitude]
+    [
+      rideDetails?.pickup_location.latitude,
+      rideDetails?.pickup_location.longitude,
+    ]
   );
 
   const end = useMemo(
     () => ({
-      lat: rides?.dropoff_location.latitude,
-      lng: rides?.dropoff_location.longitude,
+      lat: rideDetails?.dropoff_location.latitude,
+      lng: rideDetails?.dropoff_location.longitude,
     }),
-    [rides?.dropoff_location.latitude, rides?.dropoff_location.longitude]
+    [
+      rideDetails?.dropoff_location.latitude,
+      rideDetails?.dropoff_location.longitude,
+    ]
   );
 
   useEffect(() => {
     if (start && end) {
+      // eslint-disable-next-line no-undef
       const directionsService = new google.maps.DirectionsService();
       directionsService.route(
         {
           origin: start,
           destination: end,
+          // eslint-disable-next-line no-undef
           travelMode: google.maps.TravelMode.DRIVING, // You can use DRIVING or BICYCLING
         },
         (result, status) => {
+          // eslint-disable-next-line no-undef
           if (status === google.maps.DirectionsStatus.OK) {
             setDirectionsResponse(result);
           } else {
@@ -104,26 +117,19 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
 
   const getStatus = (status) => {
     if (status === "ACCEPTED") {
-      return <p className="font-normal text-sm text-green-500">Accepted</p>;
+      return <p className="font-normal text-sm text-lime-500">Accepted</p>;
     } else if (status === "FINISHED") {
       return <p className="font-normal text-sm text-green-500">Finished</p>;
     } else if (status === "CANCELED") {
-      return <p className="font-normal text-sm text-[]">Canceled</p>;
-    } else if (status === "REQUESTING") {
-      return <p className="font-normal text-sm text-[]">Requesting</p>;
+      return <p className="font-normal text-sm text-red-500">Canceled</p>;
+    } else if (status === "CREATED") {
+      return <p className="font-normal text-sm text-yellow-500">Requesting</p>;
     } else if (status === "ONROUTE") {
-      return <p className="font-normal text-sm text-green-500">Onroute</p>;
+      return <p className="font-normal text-sm text-blue-500">Onroute</p>;
     } else {
-      return <p className="font-normal text-sm text-[]">Waiting</p>;
+      return <p className="font-normal text-sm text-orange-500">Waiting</p>;
     }
   };
-
-  const center = {
-    lat: (start.lat + end.lat) / 2,
-    lng: (start.lng + end.lng) / 2,
-  };
-
-  const route = [start, center, end];
 
   if (error) {
     return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
@@ -158,7 +164,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 onClick={handleClose}
               />
               <h2 className="text-2xl font-bold font-redhat">
-                Ride #{(rides && rides?.ride_id?.slice(-5)) || 1954}
+                Ride #{rideDetails?.ride_id?.slice(-5) || 1954}
               </h2>
             </div>
             <CloseIcon
@@ -172,32 +178,34 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Ride ID
               </p>
-              <p>#{(rides && rides?.ride_id?.slice(-5)) || "Error"}</p>
+              <p>#{rideDetails?.ride_id?.slice(-5) || "Error"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Driver Name
               </p>
-              <p>{rides && rides?.driver_full_name}</p>
+              <p>{rideDetails?.driver_full_name || "Not Found"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Status
               </p>
-              <p>{rides && rides?.status && getStatus(rides?.status)}</p>
+              <p>{rideDetails?.status && getStatus(rideDetails?.status)}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
-                Distance/Time
+                Distance
               </p>
-              <p>{rides && rides?.distance_in_kilometers} km</p>
+              <p>{rideDetails?.distance_in_kilometers} km</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Vehicle VIN
               </p>
-              {rides?.vehicle_vin ? (
-                <p className="font-normal text-sm">{rides?.vehicle_vin}</p>
+              {rideDetails?.vehicle_vin ? (
+                <p className="font-normal text-sm">
+                  {rideDetails?.vehicle_vin}
+                </p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">Null</p>
               )}
@@ -206,10 +214,36 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Zone
               </p>
-              {rides?.zone ? (
-                <p className="font-normal text-sm"># {rides?.zone}</p>
+              {rideDetails?.zone ? (
+                <p className="font-normal text-sm">
+                  {rideDetails?.zone[0].zone_name}
+                </p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">None Zone</p>
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="flex gap-8">
+              <p className="font-bold text-base font-redhat max-w-[30%] w-full">
+                Charge
+              </p>
+              {rideDetails?.zone ? (
+                <p className="font-normal text-sm">{rideDetails?.fare}</p>
+              ) : (
+                <p className="font-normal text-red-400 text-sm">None</p>
+              )}
+            </div>
+            <div className="flex gap-8">
+              <p className="font-bold text-base font-redhat max-w-[30%] w-full">
+                Driver ID
+              </p>
+              {rideDetails?.zone ? (
+                <p className="font-normal text-sm">
+                  #{rideDetails?.driver_id?.slice(-5)}
+                </p>
+              ) : (
+                <p className="font-normal text-red-400 text-sm">None</p>
               )}
             </div>
           </div>
@@ -219,7 +253,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 <img src={fromlocation} alt="fromlocation" />
                 <p className="font-redhat font-bold text-base">From</p>
               </div>
-              <p className="text-sm">{rides?.pickup_address}</p>
+              <p className="text-sm">{rideDetails?.pickup_address}</p>
             </div>
 
             <div className="relative flex-1 justify-center flex items-baseline">
@@ -259,7 +293,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 <img src={tolocation} alt="fromlocation" />
                 <p className="font-redhat font-bold text-base">To location</p>
               </div>
-              <p className="text-sm">{rides?.dropoff_address}</p>
+              <p className="text-sm">{rideDetails?.dropoff_address}</p>
             </div>
           </div>
 
@@ -275,7 +309,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
 
               {directionsResponse && (
                 <Polyline
-                  path={directionsResponse.routes[0].overview_path}
+                  path={directionsResponse?.routes[0]?.overview_path}
                   options={{
                     strokeColor: "black",
                     strokeOpacity: 1,

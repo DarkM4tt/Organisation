@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// const org_id = localStorage.getItem("org_id");
+const org_id = localStorage.getItem("org_id");
 
 export const ridesSlice = createApi({
   reducerPath: "rideApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_DEV_URL }),
   endpoints: (builder) => ({
     getRide: builder.query({
-      query: (rideId) => `/organization/getCabById/${rideId}`,
+      query: (rideId) => `/organization/${org_id}/getCabById/${rideId}`,
     }),
   }),
 });
