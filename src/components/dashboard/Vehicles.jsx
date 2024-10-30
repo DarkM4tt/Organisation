@@ -263,7 +263,7 @@ const Vehicles = ({ onVehicleClick }) => {
       "registration_number",
       addVehicleFormData.registration_number
     );
-    formData.append("vin", addVehicleFormData.vin);
+    formData.append("vin", addVehicleFormData.vin.toUpperCase());
     formData.append("brand_name", addVehicleFormData.brand_name);
     formData.append("category_id", addVehicleFormData.category_id);
     formData.append("model", addVehicleFormData.model);

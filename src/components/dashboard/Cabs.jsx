@@ -140,7 +140,7 @@ const Cabs = () => {
 
   return (
     <div className="flex flex-col gap-8 p-4">
-      <h1 className="text-2xl font-bold">Cab Rides</h1>
+      <h1 className="text-2xl font-bold">Cabs</h1>
       <div className="flex justify-between">
         <div className="flex space-x-4 h-10">
           <Button
@@ -289,7 +289,11 @@ const Cabs = () => {
                     </TableCell>
 
                     <TableCell sx={{ width: "15%" }}>
-                      {ride?.driver_full_name}
+                      {ride?.driver_full_name ? (
+                        ride?.driver_full_name
+                      ) : (
+                        <p className="text-red-500">Not accepted yet</p>
+                      )}
                     </TableCell>
 
                     <TableCell sx={{ width: "18%" }}>
@@ -302,7 +306,7 @@ const Cabs = () => {
                       >
                         <div className="relative group">
                           <span>{truncateAddress(ride?.pickup_address)}</span>
-                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 max-w-52">
                             {ride?.pickup_address || "Fetching address..."}
                           </div>
                         </div>
@@ -319,7 +323,7 @@ const Cabs = () => {
                       >
                         <div className="relative group">
                           <span>{truncateAddress(ride?.dropoff_address)}</span>
-                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                          <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 max-w-52">
                             {ride?.dropoff_address || "Fetching address..."}
                           </div>
                         </div>

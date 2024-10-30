@@ -9,7 +9,10 @@ export const ridesSlice = createApi({
     getRide: builder.query({
       query: (rideId) => `/organization/${org_id}/getCabById/${rideId}`,
     }),
+    getPackage: builder.query({
+      query: (rideId) => `/organization/${org_id}/get_packageById/${rideId}`,
+    }),
   }),
 });
 
-export const { useGetRideQuery } = ridesSlice;
+export const { useGetRideQuery, useGetPackageQuery } = ridesSlice;

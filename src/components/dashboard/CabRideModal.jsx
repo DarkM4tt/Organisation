@@ -135,6 +135,8 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
     return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
   }
 
+  console.log(error);
+
   return (
     <Modal open={open} onClose={handleClose}>
       {!isLoaded || isLoading ? (
@@ -184,7 +186,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Driver Name
               </p>
-              <p>{rideDetails?.driver_full_name || "Not Found"}</p>
+              <p>{rideDetails?.driver_full_name || "Not accepted yet!"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
@@ -229,7 +231,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 Charge
               </p>
               {rideDetails?.zone ? (
-                <p className="font-normal text-sm">{rideDetails?.fare}</p>
+                <p className="font-normal text-sm">€ {rideDetails?.fare}</p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">None</p>
               )}
