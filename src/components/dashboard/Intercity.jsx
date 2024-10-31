@@ -10,13 +10,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Visibility } from "@mui/icons-material";
 import Addintercityride from "./Addintercityride";
 import LoadingAnimation from "../common/LoadingAnimation";
 import "../extra.css";
 
 // eslint-disable-next-line react/prop-types
-const Intercity = ({ setActiveComponent }) => {
+const Intercity = ({ onIntercityClick }) => {
   const [showAddVehicleModal, setShowAddVehicleModal] = useState(false);
   const [intercityRides, setIntercityRides] = useState([]);
   const [loading, setLoading] = useState([]);
@@ -208,13 +208,11 @@ const Intercity = ({ setActiveComponent }) => {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              <TableBody className="cursor-pointer">
                 {intercityRides.map((intercity, index) => (
                   <TableRow
                     key={index}
-                    onClick={() => {
-                      setActiveComponent("Intercityrideinfo");
-                    }}
+                    onClick={() => onIntercityClick(intercity?.id)}
                     sx={{
                       borderRadius: "8px",
                       backgroundColor: "#EEEEEE",
@@ -279,7 +277,7 @@ const Intercity = ({ setActiveComponent }) => {
                     </TableCell>
                     <TableCell>
                       <IconButton>
-                        <MoreVertIcon />
+                        <Visibility />
                       </IconButton>
                     </TableCell>
                   </TableRow>

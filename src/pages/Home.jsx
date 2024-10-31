@@ -30,6 +30,7 @@ const Home = () => {
   const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const [selectedDriverId, setSelectedDriverId] = useState(null);
   const [selectedFleetId, setSelectedFleetId] = useState(null);
+  const [selectedIntercityId, setSelectedIntercityId] = useState(null);
   const [notification, setnotification] = useState(null);
   const [showsidebar, setshowsidebar] = useState(false);
 
@@ -54,6 +55,11 @@ const Home = () => {
     console.log(fleetId);
     setSelectedFleetId(fleetId);
     setActiveComponent("FleetInfo");
+  };
+
+  const handleIntercityClick = (intercityId) => {
+    setSelectedIntercityId(intercityId);
+    setActiveComponent("IntercityRideInfo");
   };
 
   const renderActiveComponent = () => {
@@ -87,6 +93,16 @@ const Home = () => {
       );
     }
 
+    if (selectedIntercityId && activeComponent === "IntercityRideInfo") {
+      return (
+        <IntercityrideInfo
+          selectedIntercityId={selectedIntercityId}
+          setActiveComponent={setActiveComponent}
+          setSelectedIntercityId={setSelectedIntercityId}
+        />
+      );
+    }
+
     switch (activeComponent) {
       case "Dashboard":
         return (
@@ -108,9 +124,7 @@ const Home = () => {
       case "Packages":
         return <Packages />;
       case "Intercity":
-        return <Intercity setActiveComponent={setActiveComponent} />;
-      case "Intercityrideinfo":
-        return <IntercityrideInfo setActiveComponent={setActiveComponent} />;
+        return <Intercity onIntercityClick={handleIntercityClick} />;
       case "Rentals":
         return <Rentals />;
       case "Jumpstart":

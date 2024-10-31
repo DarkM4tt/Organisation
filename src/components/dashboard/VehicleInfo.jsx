@@ -309,18 +309,6 @@ const VehicleInfo = ({
     }
   };
 
-  if (loading) {
-    return (
-      <div className="mx-auto w-full h-full ">
-        <LoadingAnimation height={500} width={500} />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
-  }
-
   const handleSubmit = async () => {
     setAssignError("");
     !formData.rentable && delete formData.rent_hourly_charges;
@@ -344,6 +332,18 @@ const VehicleInfo = ({
       setAssignError("Error updating vehicle");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="mx-auto w-full h-full ">
+        <LoadingAnimation height={500} width={500} />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
+  }
 
   return (
     <div className="p-6">

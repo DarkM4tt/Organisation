@@ -135,8 +135,6 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
     return <h1 className="text-red-400 text-3xl p-4 font-bold">{error}</h1>;
   }
 
-  console.log(error);
-
   return (
     <Modal open={open} onClose={handleClose}>
       {!isLoaded || isLoading ? (
