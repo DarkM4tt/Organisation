@@ -674,7 +674,7 @@ const Vehicles = ({ onVehicleClick }) => {
                             : "Assigned"}
                         </p>
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell>
                         {status ? (
                           <span className="bg-[#e6f7e6] px-4 py-2 rounded-2xl text-[#28a745]">
                             Approved
