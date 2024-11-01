@@ -1,18 +1,12 @@
 import {
   Button,
-  IconButton,
   MenuItem,
   Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
-  TextField,
-  Menu,
-  InputAdornment,
-  styled,
 } from "@mui/material";
 import radioButtonChecked from "../../assets/radioButtonChecked.svg";
 import radioButtonUnChecked from "../../assets/radioButtonUnChecked.svg";
@@ -21,6 +15,7 @@ import moneyicon from "../../assets/balancemoney.svg";
 import twoLeft from "../../assets/twoLeft.svg";
 import oneLeft from "../../assets/oneLeft.svg";
 import twoRight from "../../assets/twoRight.svg";
+
 const CustomSelectDropdown = ({ value, onChange, name, options, ...rest }) => {
   const MenuProps = {
     PaperProps: {
@@ -147,7 +142,7 @@ const CustomSelectDropdown = ({ value, onChange, name, options, ...rest }) => {
 const Balance = () => {
   const times = ["11:46 PM", "11:46 PM", "11:46 PM", "11:46 PM"];
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-2 px-4 py-2">
       <h1 className="text-2xl font-bold">Balance</h1>
       <div className="flex gap-6 pt-11">
         <div className="border border-[#DDDDDD] rounded-xl py-4 px-3 flex-grow flex flex-col gap-3">

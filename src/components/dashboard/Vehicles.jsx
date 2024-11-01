@@ -409,7 +409,10 @@ const Vehicles = ({ onVehicleClick }) => {
     ).length;
     const notUploadedCount = totalDocs - Object.keys(documents).length;
 
+    const allApproved = approvedCount === totalDocs;
+
     return {
+      status: allApproved,
       notUploadedCount,
       pendingCount,
       approvedCount,
@@ -625,7 +628,7 @@ const Vehicles = ({ onVehicleClick }) => {
               <TableBody>
                 {filteredVehicles?.map((vehicle, index) => {
                   const documents = vehicle?.documents || {};
-                  const { notUploadedCount, pendingCount } =
+                  const { notUploadedCount, pendingCount, status } =
                     getVerificationStatus(documents);
 
                   return (
