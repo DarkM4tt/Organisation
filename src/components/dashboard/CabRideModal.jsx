@@ -164,7 +164,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
                 onClick={handleClose}
               />
               <h2 className="text-2xl font-bold font-redhat">
-                Ride #{rideDetails?.ride_id?.slice(-5) || 1954}
+                Ride #{rideDetails?.ride_id?.slice(-5).toUpperCase() || 1954}
               </h2>
             </div>
             <CloseIcon
@@ -178,7 +178,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Ride ID
               </p>
-              <p>#{rideDetails?.ride_id?.slice(-5) || "Error"}</p>
+              <p>#{rideDetails?.ride_id?.slice(-5).toUpperCase() || "Error"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full whitespace-nowrap">
@@ -238,7 +238,7 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               </p>
               {rideDetails?.zone ? (
                 <p className="font-normal text-sm">
-                  #{rideDetails?.driver_id?.slice(-5)}
+                  #{rideDetails?.driver_id?.slice(-5).toUpperCase()}
                 </p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">None</p>

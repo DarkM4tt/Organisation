@@ -224,7 +224,7 @@ const Intercity = ({ onIntercityClick }) => {
                         fontWeight: "700",
                       }}
                     >
-                      #{intercity?.id?.slice(-5)}
+                      #{intercity?.id?.slice(-5).toUpperCase()}
                     </TableCell>
                     <TableCell
                       sx={{

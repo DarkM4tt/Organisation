@@ -273,7 +273,7 @@ const Cabs = () => {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      #{ride?.ride_id?.slice(-5)}
+                      #{ride?.ride_id?.slice(-5).toUpperCase()}
                     </TableCell>
 
                     <TableCell sx={{ width: "12%" }}>

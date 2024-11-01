@@ -263,6 +263,10 @@ const DriverInfo = ({
               <img src={carImage} alt="Car" className="mr-5" />
               <div>
                 <Typography variant="body1" fontWeight="700">
+                  {driverDetails?.vehicle_id?.color}
+                  {"  "}
+                  {driverDetails?.vehicle_id?.brand}
+                  {"  "}
                   {driverDetails?.vehicle_id?.vehicle_model}
                 </Typography>
                 <Typography variant="body1" fontWeight="600">

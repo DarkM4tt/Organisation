@@ -135,7 +135,9 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
               setActiveComponent("Intercity");
             }}
           />
-          <h1 className="text-2xl font-bold">Intercity rides</h1>
+          <h1 className="text-2xl font-bold">
+            Intercity ride #{intercityDetails?.id?.slice(-5).toUpperCase()}
+          </h1>
         </div>
       </div>
 
