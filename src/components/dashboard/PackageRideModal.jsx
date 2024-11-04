@@ -116,18 +116,18 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
   };
 
   const getStatus = (status) => {
-    if (status === "ACCEPTED") {
-      return <p className="font-normal text-sm text-lime-500">Accepted</p>;
-    } else if (status === "FINISHED") {
-      return <p className="font-normal text-sm text-green-500">Finished</p>;
-    } else if (status === "CANCELED") {
-      return <p className="font-normal text-sm text-red-500">Canceled</p>;
-    } else if (status === "CREATED") {
-      return <p className="font-normal text-sm text-yellow-500">Requesting</p>;
-    } else if (status === "ONROUTE") {
+    if (status === "REACHED") {
+      return <p className="font-normal text-sm text-lime-500">Reached</p>;
+    } else if (status === "DELIVERED") {
+      return <p className="font-normal text-sm text-green-500">Delivered</p>;
+    } else if (status === "PICKUP_FAILED ") {
+      return <p className="font-normal text-sm text-red-500">Failed</p>;
+    } else if (status === "SHIPED") {
+      return <p className="font-normal text-sm text-violet-500">Shiped</p>;
+    } else if (status === "ENROUTE") {
       return <p className="font-normal text-sm text-blue-500">Onroute</p>;
     } else {
-      return <p className="font-normal text-sm text-orange-500">Waiting</p>;
+      return <p className="font-normal text-sm text-yellow-500">Pending</p>;
     }
   };
 
@@ -178,13 +178,13 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Package ID
               </p>
-              <p>#{packageDetails?._id?.slice(-5) || "Error"}</p>
+              <p>#{packageDetails?._id?.slice(-5).toUpperCase() || "Error"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Driver Name
               </p>
-              <p>{packageDetails?.driver_full_name || "Not accepted yet!"}</p>
+              <p>{packageDetails?.driver_name || "Not accepted yet!"}</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
@@ -198,7 +198,7 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Distance
               </p>
-              <p>{packageDetails?.distance_in_kilometers} km</p>
+              <p>{packageDetails?.distance_in_meters / 1000} km</p>
             </div>
             <div className="flex gap-8">
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
@@ -216,12 +216,12 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Weight
               </p>
-              {packageDetails?.zone ? (
+              {packageDetails?.weight ? (
                 <p className="font-normal text-sm">
-                  {packageDetails?.zone[0].zone_name}
+                  {packageDetails?.weight} kg
                 </p>
               ) : (
-                <p className="font-normal text-red-400 text-sm">None Zone</p>
+                <p className="font-normal text-red-400 text-sm">Null</p>
               )}
             </div>
           </div>
@@ -230,10 +230,12 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Charge
               </p>
-              {packageDetails?.zone ? (
-                <p className="font-normal text-sm">€ {packageDetails?.fare}</p>
+              {packageDetails?.charges ? (
+                <p className="font-normal text-sm">
+                  € {packageDetails?.charges?.amount}
+                </p>
               ) : (
-                <p className="font-normal text-red-400 text-sm">None</p>
+                <p className="font-normal text-red-400 text-sm">Null</p>
               )}
             </div>
             <div className="flex gap-8">
@@ -295,7 +297,7 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
                 <img src={tolocation} alt="fromlocation" />
                 <p className="font-redhat font-bold text-base">To location</p>
               </div>
-              <p className="text-sm">{packageDetails?.dropoff_address}</p>
+              <p className="text-sm">{packageDetails?.delivery_address}</p>
             </div>
           </div>
 

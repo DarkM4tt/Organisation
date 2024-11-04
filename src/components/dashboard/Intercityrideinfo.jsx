@@ -145,11 +145,11 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
 
       <div className="flex gap-4 pt-2 mt-4">
         <p className="text-base font-bold font-redhat">
-          {intercityDetails?.from}
+          {intercityDetails?.pickup_city?.name}
         </p>
         <img src={travelicon} alt="travel" />
         <p className="text-base font-bold font-redhat">
-          {intercityDetails?.to}
+          {intercityDetails?.dropoff_city?.name}
         </p>
       </div>
       <div className="flex gap-6 ">
@@ -233,11 +233,11 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
               <div className="leftone gap-2">
                 <div className="flex gap-4">
                   <p className="text-base font-bold font-redhat">
-                    {intercityDetails?.from}
+                    {intercityDetails?.pickup_city?.name}
                   </p>
                   <img src={travelicon} alt="travel" />
                   <p className="text-base font-bold font-redhat">
-                    {intercityDetails?.to}
+                    {intercityDetails?.dropoff_city?.name}
                   </p>
                 </div>
                 <p className="font-normal text-base mt-2">

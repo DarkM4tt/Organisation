@@ -211,7 +211,7 @@ const Cabs = () => {
         <>
           <TableContainer
             sx={{
-              maxHeight: "60vh",
+              maxHeight: "55vh",
               border: "1px solid rgba(221, 221, 221, 1)",
               overflow: "auto",
             }}

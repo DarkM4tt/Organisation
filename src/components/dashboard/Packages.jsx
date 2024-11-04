@@ -105,15 +105,15 @@ const Packages = () => {
   };
 
   const getStatus = (status) => {
-    if (status === "ACCEPTED") {
-      return <p className="font-normal text-sm text-lime-500">Accepted</p>;
-    } else if (status === "FINISHED") {
-      return <p className="font-normal text-sm text-green-500">Finished</p>;
-    } else if (status === "CANCELED") {
-      return <p className="font-normal text-sm text-red-500">Canceled</p>;
-    } else if (status === "CREATED") {
-      return <p className="font-normal text-sm text-violet-500">Requesting</p>;
-    } else if (status === "ONROUTE") {
+    if (status === "REACHED") {
+      return <p className="font-normal text-sm text-lime-500">Reached</p>;
+    } else if (status === "DELIVERED") {
+      return <p className="font-normal text-sm text-green-500">Delivered</p>;
+    } else if (status === "PICKUP_FAILED ") {
+      return <p className="font-normal text-sm text-red-500">Failed</p>;
+    } else if (status === "SHIPED") {
+      return <p className="font-normal text-sm text-violet-500">Shiped</p>;
+    } else if (status === "ENROUTE") {
       return <p className="font-normal text-sm text-blue-500">Onroute</p>;
     } else {
       return <p className="font-normal text-sm text-yellow-500">Pending</p>;
@@ -267,7 +267,7 @@ const Packages = () => {
                       cursor: "pointer",
                       "&:hover": { backgroundColor: "rgba(245, 245, 245, 1)" },
                     }}
-                    onClick={() => handleRideClick(packageDetails?.package_id)}
+                    onClick={() => handleRideClick(packageDetails?._id)}
                   >
                     <TableCell
                       sx={{
@@ -275,7 +275,7 @@ const Packages = () => {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      #{packageDetails?.package_id}
+                      #{packageDetails?._id.slice(-5).toUpperCase()}
                     </TableCell>
 
                     <TableCell sx={{ width: "12%" }}>
@@ -328,7 +328,7 @@ const Packages = () => {
                       >
                         <div className="relative group">
                           <span>
-                            {truncateAddress(packageDetails?.dropoff_address)}
+                            {truncateAddress(packageDetails?.delivery_address)}
                           </span>
                           <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 max-w-52">
                             {packageDetails?.dropoff_address ||
@@ -343,7 +343,7 @@ const Packages = () => {
                     </TableCell>
 
                     <TableCell sx={{ width: "5%", textAlign: "center" }}>
-                      {packageDetails?.distance_in_meters} km
+                      {packageDetails?.distance_in_meters / 1000} km
                     </TableCell>
 
                     <TableCell sx={{ width: "5%", textAlign: "center" }}>
