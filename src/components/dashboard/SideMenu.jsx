@@ -10,13 +10,13 @@ const menuItems = [
   { name: "Drivers" },
   {
     name: "Rides",
-    submenu: ["Cabs", "Packages", "Intercity", "Rentals", "Jumpstart"],
+    submenu: ["Cabs", "Packages", "Intercity", "Jumpstart", "Rentals"],
   },
   { name: "Live Map" },
   { name: "Bold Connect" },
+  { name: "Performance" },
   { name: "Reports" },
   { name: "Documents" },
-  { name: "Balance" },
   { name: "Notifications" },
   { name: "Settings" },
 ];

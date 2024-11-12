@@ -137,7 +137,7 @@ const Home = () => {
         return <Reports />;
       case "Documents":
         return <Documents />;
-      case "Balance":
+      case "Performance":
         return <Balance />;
       case "Notifications":
         return <Notifications />;

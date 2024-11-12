@@ -143,7 +143,7 @@ const Balance = () => {
   const times = ["11:46 PM", "11:46 PM", "11:46 PM", "11:46 PM"];
   return (
     <div className="flex flex-col gap-2 px-4 py-2">
-      <h1 className="text-2xl font-bold">Balance</h1>
+      <h1 className="text-2xl font-bold">Performance</h1>
       <div className="flex gap-6 pt-11">
         <div className="border border-[#DDDDDD] rounded-xl py-4 px-3 flex-grow flex flex-col gap-3">
           <p className="font-redhat font-semibold text-base text-[#666666]">
