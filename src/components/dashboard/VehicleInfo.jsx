@@ -494,11 +494,16 @@ const VehicleInfo = ({
 
       <div className="flex flex-col md:flex-row justify-between md:gap-[5%]">
         <div className="md:flex-[55%]">
-          <Typography
-            sx={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px" }}
-          >
-            Required vehicle documents
-          </Typography>
+          <div className="flex justify-between">
+            <Typography
+              sx={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px" }}
+            >
+              Required vehicle documents
+            </Typography>
+            {uploadError && (
+              <p className="mt-2 font-redhat text-red-400">{uploadError}</p>
+            )}
+          </div>
           {[
             {
               label: "[Partner Only] > Car Insurance Policy (Green Card)",
@@ -600,9 +605,6 @@ const VehicleInfo = ({
                   )}
                 </Button>
               </div>
-              {uploadError && (
-                <p className="mt-2 font-redhat text-red-400">{uploadError}</p>
-              )}
             </Card>
           ))}
         </div>
