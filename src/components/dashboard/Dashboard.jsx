@@ -115,7 +115,7 @@ const Dashboard = ({ onMenuItemClick }) => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div
-          onClick={() => onMenuItemClick("Balance")}
+          onClick={() => onMenuItemClick("Performance")}
           className="border border-borderGray rounded-lg flex flex-col justify-between cursor-pointer p-4"
         >
           <div className="flex gap-2">
@@ -203,7 +203,7 @@ const Dashboard = ({ onMenuItemClick }) => {
           </div>
         </div>
         <div
-          onClick={() => onMenuItemClick("Reports")}
+          onClick={() => onMenuItemClick("Performance")}
           className="border border-borderGray rounded-lg flex justify-between cursor-pointer p-4"
         >
           <div className="leftonelast w-1/2 flex flex-col justify-between">
