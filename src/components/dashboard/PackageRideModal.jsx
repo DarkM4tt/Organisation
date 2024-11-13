@@ -242,9 +242,11 @@ const PackageRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Dimensions
               </p>
-              {packageDetails?.zone ? (
-                <p className="font-normal text-sm">
-                  #{packageDetails?.driver_id?.slice(-5)}
+              {packageDetails?.dimensions ? (
+                <p className="font-normal text-sm text-blue-500">
+                  {packageDetails?.dimensions?.width} X{" "}
+                  {packageDetails?.dimensions?.height} X{" "}
+                  {packageDetails?.dimensions?.weight}
                 </p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">None</p>

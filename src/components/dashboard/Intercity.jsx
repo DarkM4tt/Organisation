@@ -232,7 +232,7 @@ const Intercity = ({ onIntercityClick }) => {
                         fontWeight: "700",
                       }}
                     >
-                      {intercity?.from}
+                      {intercity?.pickup_city?.name}
                     </TableCell>
                     <TableCell
                       sx={{
@@ -240,7 +240,7 @@ const Intercity = ({ onIntercityClick }) => {
                         fontWeight: "700",
                       }}
                     >
-                      {intercity?.to}
+                      {intercity?.dropoff_city?.name}
                     </TableCell>
                     <TableCell
                       sx={{
