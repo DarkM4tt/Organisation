@@ -83,12 +83,8 @@ const Drivers = ({ onDriverClick }) => {
     if (!showAll) {
       if (state) {
         state === "Active"
-          ? (filtered = filtered.filter(
-              (driver) => driver?.status === "ONLINE"
-            ))
-          : (filtered = filtered.filter(
-              (driver) => driver?.status !== "ONLINE"
-            ));
+          ? (filtered = filtered.filter((driver) => driver?.isActive))
+          : (filtered = filtered.filter((driver) => !driver?.isActive));
       }
       if (assignment) {
         assignment === "Not assigned"
