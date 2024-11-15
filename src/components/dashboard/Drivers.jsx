@@ -503,7 +503,7 @@ const Drivers = ({ onDriverClick }) => {
                           </div>
                         </TableCell>
                         <TableCell>
-                          {driver?.status === "ONLINE" ? (
+                          {driver?.isActive ? (
                             <span className="flex gap-2">
                               <img src={greenDot} alt="greenDot" />
                               <p className="font-redhat text-base font-semibold">
