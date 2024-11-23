@@ -214,9 +214,9 @@ const CabRideModal = ({ open, handleClose, selectedRideId }) => {
               <p className="font-bold text-base font-redhat max-w-[30%] w-full">
                 Zone
               </p>
-              {rideDetails?.zone ? (
+              {rideDetails?.zone && rideDetails?.zone.length > 0 ? (
                 <p className="font-normal text-sm">
-                  {rideDetails?.zone[0].zone_name}
+                  {rideDetails?.zone[0]?.zone_name}
                 </p>
               ) : (
                 <p className="font-normal text-red-400 text-sm">None Zone</p>
