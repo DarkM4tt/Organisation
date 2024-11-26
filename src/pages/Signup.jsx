@@ -25,6 +25,7 @@ const Signup = () => {
   const [earningCountry, setEarningCountry] = useState("");
   const [language, setLanguage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [personalAccidentFile, setPersonalAccidentFile] = useState(null);
   const [civilLiabilityFile, setCivilLiabilityFile] = useState(null);
@@ -101,7 +102,8 @@ const Signup = () => {
         localStorage.setItem("org_id", org_id);
         navigate("/home");
       } catch (error) {
-        console.error("Error: ", error);
+        console.error("Error: ", error.data.message);
+        setError(error.data.message);
         setIsError(true);
       } finally {
         setLoading(false);
@@ -270,6 +272,11 @@ const Signup = () => {
             />
           )}
         </div>
+        {error && (
+          <p className="text-red-500 text-lg mt-2">
+            {error || "Error occurred"}
+          </p>
+        )}
       </div>
     </div>
   );
