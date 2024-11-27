@@ -73,7 +73,7 @@ const Cabs = () => {
     if (search) {
       const searchLower = search.toLowerCase();
       filtered = filtered.filter((ride) => {
-        return ride?.driver_id?.full_name.toLowerCase() === searchLower;
+        return ride?.driver_full_name?.toLowerCase().includes(searchLower);
       });
     }
 
@@ -179,7 +179,7 @@ const Cabs = () => {
         <div className="flex space-x-4 h-10">
           <TextField
             variant="outlined"
-            placeholder="Search for Rides"
+            placeholder="Search by driver name"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             InputProps={{
@@ -194,7 +194,6 @@ const Cabs = () => {
               ),
             }}
             sx={{
-              width: "150%",
               ".MuiOutlinedInput-input": {
                 padding: "10px 4px",
               },

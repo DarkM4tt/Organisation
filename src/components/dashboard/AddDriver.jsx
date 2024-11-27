@@ -176,24 +176,12 @@ const AddDriver = ({
       <Box display="flex" gap="10px">
         <Box sx={{ width: "50%" }}>
           <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
-            First Name <span className="text-red-500">*</span>
+            Full Name <span className="text-red-500">*</span>
           </Typography>
           <TextField
             // value={inputCode}
             // onChange={(e) => setInputCode(e.target.value)}
-            placeholder="Enter driver’s first name"
-            fullWidth
-            variant="outlined"
-          />
-        </Box>
-        <Box sx={{ width: "50%" }}>
-          <Typography variant="body1" sx={{ mb: 1 }} fontWeight="700">
-            Last Name <span className="text-red-500">*</span>
-          </Typography>
-          <TextField
-            // value={inputCode}
-            // onChange={(e) => setInputCode(e.target.value)}
-            placeholder="Enter driver’s last name"
+            placeholder="Enter driver’s full name"
             fullWidth
             variant="outlined"
           />
