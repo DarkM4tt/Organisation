@@ -14,6 +14,7 @@ import { Visibility } from "@mui/icons-material";
 import Addintercityride from "./Addintercityride";
 import LoadingAnimation from "../common/LoadingAnimation";
 import "../extra.css";
+import { formatDate } from "../../utils/helpers";
 
 // eslint-disable-next-line react/prop-types
 const Intercity = ({ onIntercityClick }) => {
@@ -164,7 +165,7 @@ const Intercity = ({ onIntercityClick }) => {
                       paddingBottom: "0px",
                     }}
                   >
-                    Time
+                    Date & Time
                   </TableCell>
                   <TableCell
                     sx={{
@@ -248,7 +249,8 @@ const Intercity = ({ onIntercityClick }) => {
                         fontWeight: "600",
                       }}
                     >
-                      {intercity?.time}
+                      {(intercity?.date && formatDate(intercity?.date)) ||
+                        "null"}
                     </TableCell>
                     <TableCell
                       sx={{

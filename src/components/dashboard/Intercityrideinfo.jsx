@@ -17,6 +17,7 @@ import travelicon from "../../assets/travelling.svg";
 import redoneicon from "../../assets/redoneicon.svg";
 import greenoneicon from "../../assets/greenoneicon.svg";
 import LoadingAnimation from "../common/LoadingAnimation";
+import { formatDateOnly, formatTimeOnly } from "../../utils/helpers";
 
 // eslint-disable-next-line react/prop-types
 const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
@@ -140,9 +141,6 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
           </h1>
         </div>
       </div>
-
-      {/* lowerdistance */}
-
       <div className="flex gap-4 pt-2 mt-4">
         <p className="text-base font-bold font-redhat">
           {intercityDetails?.pickup_city?.name}
@@ -249,7 +247,9 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
               </div>
               <div className="flex gap-2 items-center">
                 <img src={CalendarTodayIcon} alt="admin office" />
-                <p className="font-redhat font-normal text-base">13-08-2024</p>
+                <p className="font-redhat font-normal text-base">
+                  {formatDateOnly(intercityDetails?.date || "Null")}
+                </p>
               </div>
             </div>
             <div className="my-10 flex justify-between ">
@@ -291,7 +291,9 @@ const IntercityrideInfo = ({ setActiveComponent, selectedIntercityId }) => {
             <p className="font-redhat font-normal text-base text-[#777777]">
               Note: This ride was scheduled through Drivers End. The ride was
               started by{" "}
-              <span className="font-semibold text-black">05:24 AM</span>
+              <span className="font-semibold text-black">
+                {formatTimeOnly(intercityDetails?.date || "Null")}
+              </span>
             </p>
           </div>
         </div>
