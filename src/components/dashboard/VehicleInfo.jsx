@@ -412,9 +412,10 @@ const VehicleInfo = ({
                 fontWeight="700"
                 sx={{ color: "rgba(153, 153, 153, 1)" }}
               >
-                Category
+                Color & Category
               </Typography>
               <Typography variant="body1" fontWeight="600">
+                {vehicleDetails?.color}{" "}
                 {vehicleDetails?.category?.name || "Null"}
               </Typography>
             </div>
