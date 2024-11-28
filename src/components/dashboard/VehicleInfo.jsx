@@ -415,7 +415,8 @@ const VehicleInfo = ({
                 Color & Category
               </Typography>
               <Typography variant="body1" fontWeight="600">
-                {vehicleDetails?.color}{" "}
+                {vehicleDetails?.color?.charAt(0).toUpperCase() +
+                  vehicleDetails?.color?.slice(1).toLowerCase() || ""}{" "}
                 {vehicleDetails?.category?.name || "Null"}
               </Typography>
             </div>
