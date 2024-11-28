@@ -244,6 +244,7 @@ const VehicleInfo = ({
 
   const handleAssignClick = async () => {
     setAssignLoading(true);
+    setAssignError("");
     const orgId = localStorage.getItem("org_id");
     const data = {
       driver_email: driverEmail,
@@ -411,10 +412,10 @@ const VehicleInfo = ({
                 fontWeight="700"
                 sx={{ color: "rgba(153, 153, 153, 1)" }}
               >
-                Color
+                Category
               </Typography>
               <Typography variant="body1" fontWeight="600">
-                {vehicleDetails?.color}
+                {vehicleDetails?.category?.name || "Null"}
               </Typography>
             </div>
             <div className="flex flex-col">
