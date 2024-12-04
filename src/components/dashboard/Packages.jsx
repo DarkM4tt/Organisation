@@ -76,7 +76,7 @@ const Packages = () => {
     if (search) {
       const searchLower = search.toLowerCase();
       filtered = filtered.filter((ride) => {
-        return ride?.driver_id?.full_name.toLowerCase() === searchLower;
+        return ride?.driver_name?.toLowerCase().includes(searchLower);
       });
     }
 
