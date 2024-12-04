@@ -47,9 +47,10 @@ const Packages = () => {
         setLoading(false);
         return;
       }
-      const response = await res.json();
-      setAllPackages(response);
-      setFilteredPackages(response);
+      const response = await res?.json();
+      const reversedPackages = response?.reverse();
+      setAllPackages(reversedPackages);
+      setFilteredPackages(reversedPackages);
     } catch (err) {
       setError(err);
     } finally {
@@ -339,7 +340,7 @@ const Packages = () => {
                     </TableCell>
 
                     <TableCell sx={{ width: "5%", textAlign: "center" }}>
-                      {packageDetails?.weight || "Null"} kg
+                      {packageDetails?.dimensions?.weight || "Null"} kg
                     </TableCell>
 
                     <TableCell sx={{ width: "5%", textAlign: "center" }}>
