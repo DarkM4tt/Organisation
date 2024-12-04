@@ -63,9 +63,10 @@ const Drivers = ({ onDriverClick }) => {
         setLoading(false);
         return;
       }
-      const response = await res.json();
-      setAllDrivers(response.drivers);
-      setFilteredDrivers(response.drivers);
+      const response = await res?.json();
+      const reversedDrivers = response?.drivers?.reverse();
+      setAllDrivers(reversedDrivers);
+      setFilteredDrivers(reversedDrivers);
     } catch (err) {
       setError(err);
     } finally {

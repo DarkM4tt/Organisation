@@ -47,7 +47,7 @@ const Cabs = () => {
       }
       const response = await res.json();
       setAllRides(response.rides);
-      setFilteredRides(response.rides);
+      setFilteredRides(response.rides.reverse());
     } catch (err) {
       setError(err);
     } finally {

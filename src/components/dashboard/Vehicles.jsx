@@ -90,9 +90,10 @@ const Vehicles = ({ onVehicleClick }) => {
         setLoading(false);
         return;
       }
-      const response = await res.json();
-      setFetchedVehicles(response.vehicles);
-      setFilteredVehicles(response.vehicles);
+      const response = await res?.json();
+      const reversedVehicles = response?.vehicles?.reverse();
+      setFetchedVehicles(reversedVehicles);
+      setFilteredVehicles(reversedVehicles);
     } catch (err) {
       setError(err || "An unexpected error occurred.");
     } finally {
@@ -418,6 +419,8 @@ const Vehicles = ({ onVehicleClick }) => {
       approvedCount,
     };
   };
+
+  console.log("FILTERED VEHICLES: ", filteredVehicles);
 
   if (loading) {
     return (

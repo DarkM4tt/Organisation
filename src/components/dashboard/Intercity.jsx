@@ -37,8 +37,9 @@ const Intercity = ({ onIntercityClick }) => {
         setLoading(false);
         return;
       }
-      const response = await res.json();
-      setIntercityRides(response.data);
+      const response = await res?.json();
+
+      setIntercityRides(response?.data?.reverse());
     } catch (err) {
       setError(err || "An unexpected error occurred.");
     } finally {
