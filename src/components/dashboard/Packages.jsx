@@ -332,7 +332,7 @@ const Packages = () => {
                             {truncateAddress(packageDetails?.delivery_address)}
                           </span>
                           <div className="absolute z-10 bottom-full left-0 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 max-w-52">
-                            {packageDetails?.dropoff_address ||
+                            {packageDetails?.delivery_address ||
                               "Fetching address..."}
                           </div>
                         </div>
