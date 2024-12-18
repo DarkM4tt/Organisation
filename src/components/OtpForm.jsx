@@ -70,7 +70,9 @@ function OtpForm() {
       console.log("EMAIL RES", response.isNew);
       const loginResponse = await triggerLoginWithEmail().unwrap();
       const org_id = loginResponse?.org?._id;
+      const org_name = loginResponse?.org?.organization_name;
       localStorage.setItem("org_id", org_id);
+      localStorage.setItem("org_name", org_name);
       if (org_id) {
         navigate("/home");
       } else {
